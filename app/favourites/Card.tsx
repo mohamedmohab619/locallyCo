@@ -1,12 +1,16 @@
-import perfume from '../assets/images/perfume.png'
-// import perfume2 from '../assets/images/perfume2.jpg'
+import Image from "next/image";
+import perfume from "./assets/perfume.png"; // ✅ Make sure this image exists
 
 export default function Card(){
     return( 
 
 <div className="max-w-65 h-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 justify-self-center">
     <a href="#">
-        <img className="p-3 rounded-t-lg object-cover max-h-4/6" src={perfume} alt="product image" />
+        <Image
+          src={perfume}
+          alt="product image"
+          className="p-3 rounded-t-lg object-cover max-h-4/6"
+        />
     </a>
     <div className="px-5 pb-5">
         <a href="#">
