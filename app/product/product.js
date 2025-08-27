@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import "./product.css";
+import Link from "next/link";
 
 const images = [
   // Updated main images to match the photo layout
@@ -26,7 +27,9 @@ export default function Product() {
         <div className="logo-section">
           <div className="logo-shape" />
           <strong>Untitled UI</strong>
-        </div>
+        </div> 
+            <Link href="/" className="link text-blue-600 ml-5">Home</Link>
+
       </header>
 
       {/* Breadcrumb */}

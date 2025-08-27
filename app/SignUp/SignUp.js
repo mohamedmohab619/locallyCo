@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import "./SignUp.css"; 
-import signUpandInImage from "../public/OBJECTS[1].png";
+import signUpandInImage from "../../public/OBJECTS[1].png";
 import Link from "next/link";
 
 export default function SignUp() {
@@ -29,6 +29,7 @@ export default function SignUp() {
   return (
     <div className="signup-wrapper ">
       <div className="signup-container">
+        <Link href="/" className="link text-blue-700">Home</Link>
         <h2 className="mx-5">Sign up</h2>
         <p className="slogan mx-2">Fashion never been easier.</p>
 
