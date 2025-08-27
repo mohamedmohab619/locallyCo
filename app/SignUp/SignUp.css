@@ -3,7 +3,7 @@
   align-items: center;  
   justify-content: space-between;
   background-color: #FAF4ED;
-  background-image: url("../public/Pattern.png");
+  background-image: url("../../public/Pattern.png");
   background-attachment: fixed;
   background-size: contain;
   height: 100vh;

@@ -19,6 +19,7 @@ export default function SignIn() {
   return (
     <div className="signin-wrapper">
       <div className="signin-container">
+        <Link href="/" className="link text-blue-700">Home</Link>
         <h2 className="mx-5">Sign In</h2>
         <p className="slogan mx-2">Fashion never been easier.</p>
 
@@ -61,7 +62,7 @@ export default function SignIn() {
 
         <div className="alternate-login">
             <p className="mx-5">
-              Don&apos;t have an account ? <Link href="/" className="link">Sign up</Link>
+              Don&apos;t have an account ? <Link href="/SignUp" className="link">Sign up</Link>
             </p>
         </div>
       </div>

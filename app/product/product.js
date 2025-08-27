@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import "./product.css";
+import Link from "next/link";
 
 const images = [
   "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d53c0d9b-e991-4da3-a988-6e3992894a7c.png",
@@ -29,7 +30,9 @@ export default function Product() {
         <div className="logo-section">
           <div className="logo-shape" />
           <strong>Untitled UI</strong>
-        </div>
+        </div> 
+            <Link href="/" className="link text-blue-600 ml-5">Home</Link>
+
       </header>
 
       {/* Breadcrumb */}
