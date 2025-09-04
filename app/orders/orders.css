@@ -1,0 +1,137 @@
+.orders-container {
+  display: flex;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: #fff;
+  padding: 20px;
+  border-right: 1px solid #eee;
+}
+
+.profile-box {
+  margin-bottom: 20px;
+}
+
+.profile-box h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.email {
+  font-size: 14px;
+  color: #555;
+}
+
+.progress {
+  margin-top: 10px;
+}
+
+.progress span {
+  font-size: 12px;
+  color: #444;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #eee;
+  border-radius: 6px;
+  height: 8px;
+  margin-top: 5px;
+}
+
+.progress-fill {
+  width: 20%;
+  height: 8px;
+  background: #f7c500;
+  border-radius: 6px;
+}
+
+/* Sidebar Menu */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.menu li {
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menu li:hover {
+  background: #f9f9f9;
+}
+
+.menu .active {
+  background: #fff5cc;
+  font-weight: bold;
+}
+
+.account-section h4 {
+  font-size: 12px;
+  color: #666;
+  margin-top: 20px;
+}
+
+.account-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.account-section li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+/* Main Content */
+.orders-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-orders {
+  text-align: center;
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.empty-orders .icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.empty-orders h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.empty-orders p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.continue-btn {
+  padding: 10px 20px;
+  border: none;
+  background: #0066ff;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.continue-btn:hover {
+  background: #0052cc;
+}
