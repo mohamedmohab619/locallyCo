@@ -1,114 +1,97 @@
+/* ✅ Wrapper */
 .signin-wrapper {
-
-  display: flex;  /* Use flexbox to arrange items horizontally */
-  align-items: center;  /* Center items vertically */
-  justify-content: space-between;  /* Center items horizontally */
+  display: flex;
+  flex-direction: row; /* Side by side on large screens */
+  align-items: center;
+  justify-content: center;
   background-color: #FAF4ED;
   background-image: url("../../public/Pattern.png");
   background-attachment: fixed;
-  background-size: contain;
-  height: 100vh;
+  background-size: cover;
+  min-height: 100vh;
+  overflow: hidden; /* Remove scrollbars */
+  padding: 20px;
+  gap: 40px; /* Space between form and image */
 }
 
+/* ✅ SignIn form container */
 .signin-container {  
-  width: 500px;
+  flex: 1;
+  max-width: 400px; /* Instead of fixed width */
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #F5F5F5;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
-  margin-left: 200px;  /* Space around the form */
-  padding: 20px;
+  padding: 30px;
 }
 
+/* ✅ Responsive image */
 .signin-image img {
-  /* background-color: aqua; */
-  max-width: 1000px;  /* Adjust image width */
-  height: auto;  /* Maintain aspect ratio */
-  border-radius: 10px;  /* Optional: add rounded corners */
-
+  max-width: 600px;  /* shrink the image */
+  width: 100%;       /* responsive scaling */
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
 }
 
-
-
+/* ✅ Inputs & labels */
 .input-group {
-  color: grey;
   margin-bottom: 20px;
 }
 
 .input-group label {
   color: black;
   display: block;
-  margin-left: 40px;;
   margin-bottom: 5px;
-}
-
-.signin-container h2 {
-  color: #6D4C2F;
-  padding: 20px 0 10px;
-  font-size: x-large;
-  margin-left: 35px;
-}
-
-.signin-container small {
-  color: grey;
-  margin-left: 45px;
-  padding: 10px 0px 10px;
-}
-
-.signin-container .slogan{
-  /* background-color: aqua; */
-  color: grey;
-  padding: 5px 0px 5px 40px;
+  font-weight: 500;
 }
 
 .input-group input {
   display: block;
-  width: 83%;
-  padding: 8px;
-  margin: 0 auto;
+  width: 100%;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
+/* ✅ Buttons */
 button {
   display: block;
-  padding: 8px;
-  width: 83%; 
-  margin: 0 auto;
+  width: 100%; 
+  padding: 10px;
   background-color: #7D5B3A;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  box-sizing: border-box;
-  transition: transform 0.5s;
+  transition: transform 0.3s, background-color 0.3s;
 }
 
 button:hover {
   background-color: #6d4c2f;
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
+/* ✅ Social buttons row */
 .social-buttons {
   display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 0 50px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .social-buttons button {
   flex: 1;
   padding: 10px;
-  color: white;
-  cursor:pointer;
+  border-radius: 5px;
 }
 
+/* ✅ Divider */
 .text-with-lines {
   display: flex;
   align-items: center;
   color: grey;
-  margin: 10px 45px 10px;
+  margin: 20px 0;
 }
 
 .text-with-lines::before,
@@ -116,19 +99,71 @@ button:hover {
   content: "";
   flex: 1;
   border-bottom: 2px solid #ccc;
-  margin: 10px
-  
+  margin: 0 10px;
 }
 
-.alternate-login p{
-    color: grey;
-    text-align: center;
-    margin-top: 20px;
-    margin-right: 0px;
-    
+/* ✅ Alternate login */
+.alternate-login p {
+  color: grey;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.alternate-login p .link{
-    color:#6D4C2F;
-    
+.alternate-login p .link {
+  color: #6D4C2F;
+  font-weight: 500;
+}
+
+
+/* Google button */
+.google-btn {
+  background-color: #DB4437; /* Google Red */
+  color: white;
+  font-weight: 500;
+}
+
+.google-btn:hover {
+  background-color: #c23321;
+}
+
+/* Facebook button */
+.facebook-btn {
+  background-color: #1877F2; /* Facebook Blue */
+  color: white;
+  font-weight: 500;
+}
+
+.facebook-btn:hover {
+  background-color: #145dbf;
+}
+
+
+.apple-btn {
+  background-color: #000000;
+  color: white;
+  font-weight: 500;
+}
+
+.apple-btn:hover {
+  background-color: #333333;
+}
+
+
+
+
+/* ✅ Mobile & Tablet Responsive */
+@media (max-width: 768px) {
+  .signin-wrapper {
+    flex-direction: column; /* Stack form & image */
+    gap: 20px;
+  }
+
+  .signin-container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .signin-image img {
+    max-width: 90%;
+  }
 }

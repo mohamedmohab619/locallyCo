@@ -1,143 +1,226 @@
+/* Wrapper */
 .signup-wrapper {
-  display: flex;  
-  align-items: center;  
-  justify-content: space-between;
+  display: flex;
+  flex-direction: row;  /* side by side */
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
   background-color: #FAF4ED;
   background-image: url("../../public/Pattern.png");
   background-attachment: fixed;
-  background-size: contain;
-  height: 100vh;
+  background-size: cover;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow: hidden; /* remove x/y scrollbars */
 }
 
-.signup-container { 
-  width: 500px;
+/* Form container */
+.signup-container {
+   max-height: 100vh;  
+  overflow-y: hidden; 
+   flex: 1;
+  max-width: 400px;       /* slightly narrower */
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #F5F5F5;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
-  margin-left: 200px;  /* Space around the form */
-  padding: 20px;
-}
-
-.signup-image img {
-  /* background-color: aqua; */
-  max-width: 1000px;  /* Adjust image width */
-  height: auto;  /* Maintain aspect ratio */
-  border-radius: 10px;  /* Optional: add rounded corners */
+  padding: 1.5rem;        /* less padding */
 
 }
 
-.input-group {
+/* Headings */
+.signup-container h2 {
+  color: #6D4C2F;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.signup-container .slogan {
   color: grey;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+}
+
+/* Input fields */
+.input-group {
+  margin-bottom: 0.8rem;
 }
 
 .input-group label {
   color: black;
   display: block;
-  margin-left: 40px;;
-  margin-bottom: 5px;
+  margin-bottom: 0.4rem;
 }
 
-.signup-container h2 {
-  color: #6D4C2F;
-  padding: 20px 0 10px;
-  font-size: x-large;
-  margin-left: 35px;
-}
-
-.signup-container small {
-  color: grey;
-  margin-left: 45px;
-  padding: 10px 0px 10px;
-}
-
-.signup-container .slogan{
-  /* background-color: aqua; */
-  color: grey;
-  padding: 5px 0px 5px 40px;
-}
-
-.input-group input {
-  display: block;
-  width: 83%;
-  padding: 8px;
-  margin: 0 auto;
+.input-group input,
+.input-group select {
+  width: 100%;
+   padding: 0.5rem; 
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 0.95rem;
 }
 
+/* Button */
 button {
   display: block;
-  padding: 8px;
-  width: 83%; 
-  margin: 0 auto;
+  width: 100%;
+    padding: 0.6rem;   
+ 
   background-color: #7D5B3A;
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-  box-sizing: border-box;
-  transition: transform 0.5s;
+  transition: transform 0.3s, background-color 0.3s;
 }
 
 button:hover {
   background-color: #6d4c2f;
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
-.social-buttons {
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 0 50px;
-}
-
-.social-buttons button {
-  flex: 1;
-  padding: 10px;
-  color: white;
-  cursor:pointer;
-}
-
+/* OR text with lines */
 .text-with-lines {
   display: flex;
   align-items: center;
   color: grey;
-  margin: 10px 45px 10px;
+  margin: 1.2rem 0;
+  font-size: 0.9rem;
 }
 
 .text-with-lines::before,
 .text-with-lines::after {
   content: "";
   flex: 1;
-  border-bottom: 2px solid #ccc;
-  margin: 10px
-  
+  border-bottom: 1px solid #ccc;
+  margin: 0 0.8rem;
 }
 
-.alternate-login p{
-    color: grey;
+/* Social buttons */
+.social-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.social-buttons button {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 5px;
+}
+
+/* Alternate login */
+.alternate-login {
+  text-align: center;
+  margin-top: 1rem;
+  color: grey;
+}
+
+.alternate-login .link {
+  color: #6D4C2F;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.alternate-login .link:hover {
+  color: #6d4c2f;
+}
+
+/* Image section */
+.signup-image img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+
+/* Google button */
+.google-btn {
+  background-color: #DB4437; /* Google Red */
+  color: white;
+  font-weight: 500;
+}
+
+.google-btn:hover {
+  background-color: #c23321;
+}
+
+/* Facebook button */
+.facebook-btn {
+  background-color: #1877F2; /* Facebook Blue */
+  color: white;
+  font-weight: 500;
+}
+
+.facebook-btn:hover {
+  background-color: #145dbf;
+}
+
+
+.apple-btn {
+  background-color: #000000;
+  color: white;
+  font-weight: 500;
+}
+
+.apple-btn:hover {
+  background-color: #333333;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.gender-radio {
+  display: flex;
+  gap: 1rem; /* space between radios */
+}
+
+.gender-radio label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.gender-radio input {
+  accent-color: #007bff; /* modern blue radio */
+}
+
+.gender-radio label.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+
+
+
+
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .signup-wrapper {
+    flex-direction: column;
     text-align: center;
-    margin-top: 20px;
-    margin-right: 0px;
-    
-}
+  }
 
-.alternate-login p .link{
-    color:#6D4C2F;
-    text-decoration: none;
-    transition: 0.5s;
-}
-
-.alternate-login p .link:hover{    
-    color: #6d4c2f;    
-
-}
-
-.form-scroll {
-  max-height: 207px;   /* fixed height for scroll area */
-  overflow-y: auto;    /* enables vertical scrollbar */
-  margin: 1em 0;
+  .signup-image img {
+    max-width: 250px;
+    margin-top: 1rem;
+  }
 }
