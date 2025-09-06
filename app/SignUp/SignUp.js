@@ -11,9 +11,6 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
-  const [number, setNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [governorate, setGovernorate] = useState("");
   const [dob, setDob] = useState("");
 
   const handleSubmit = (e) => {
@@ -98,7 +95,7 @@ export default function SignUp() {
   </button>
 
   <button className="facebook-btn">Facebook</button>
-  <button className="apple-btn">Apple</button>
+
 </div>
 
         <div className="alternate-login ">
