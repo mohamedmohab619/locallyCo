@@ -1,8 +1,7 @@
-import Product from "./product/product"; 
-import Search from "./search/search"; 
+
 import Link from "next/link";
 
-import Favourites from "./favourites/page"
+
 
 export default function Home() {
   return (
@@ -13,6 +12,7 @@ export default function Home() {
       <Link href="/search" className="link">Search</Link>
       <Link href="/SignUp" className="link">SignUp</Link>
       <Link href="/favourites" className="link">Favourites</Link>
+      <Link href="/Cart" className="link">Cart</Link>
     </div>
   );
 }

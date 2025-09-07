@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
   return (
     <div className="flex flex-col bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden h-full">
       {/* Product Image */}
-      <div className="flex justify-center items-center bg-gray-50 p-4 h-48">
+      <div className="flex justify-center items-center bg-blue-700 p-4 h-48">
         <Image
           src={product.image}
           alt={product.name}
