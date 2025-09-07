@@ -1,8 +1,9 @@
-import type { NextConfig } from "next";
-import withFlowbiteReact from "flowbite-react/plugin/nextjs";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ["storage.googleapis.com"], // ✅ Add your image host here
+  },
 };
 
-export default withFlowbiteReact(nextConfig);
+module.exports = nextConfig;
