@@ -67,6 +67,7 @@ export default function NoonNavbar() {
         <Link href="/favourites" className="link">Favourites</Link>
         <Link href="/orders" className="link">Orders</Link>
         <Link href="/profile" className="link">Profile</Link>
+        <Link href="/Cart" className="link">Cart</Link>
       </div>
     </>
   );
