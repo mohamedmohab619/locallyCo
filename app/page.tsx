@@ -21,6 +21,8 @@ import "swiper/css/pagination";
 import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaTiktok } from 'react-icons/fa';
 import { Span } from "next/dist/trace";
 import Footer from "./components/Footer.js";
+import categories from "./components/Categories.js";
+import Categories from "./components/Categories.js";
 
 
 export default function NoonNavbar() {
@@ -116,6 +118,10 @@ export default function NoonNavbar() {
       image: "/Locally-BGPattern.jpg",
     },
   ];
+
+
+
+  
 
   
 
@@ -380,9 +386,16 @@ export default function NoonNavbar() {
       </div>
     </section>
 
+      {/* categories */}
+
+      <Categories />
+
       {/* footer */}
+      
       <Footer />
       
+      
+
     </>
   );
 }
