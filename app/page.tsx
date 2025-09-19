@@ -21,8 +21,14 @@ import "swiper/css/pagination";
 import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaTiktok } from 'react-icons/fa';
 import { Span } from "next/dist/trace";
 import Footer from "./components/Footer.js";
-import categories from "./components/Categories.js";
+import DealsBanner from "./components/DealsBanner.js";
 import Categories from "./components/Categories.js";
+import RecentlyViewed from "./components/RecentlyViewed.js";
+import NavBar from "./components/NavBar.js";
+import ScrollFloat from "./components/ScrollFloat"; // make sure this is your ScrollFloat path
+import { motion } from "framer-motion";
+import RotatingText from './components/RotatingText'
+
 
 
 export default function NoonNavbar() {
@@ -77,21 +83,21 @@ export default function NoonNavbar() {
       price: "500 EGP",
       rating: 4.0,
       reviews: 120,
-      image: "/Locally-BGPattern.jpg",
+      image: "/tshirt3.jpg",
     },
     {
       name: "Armani Code Eau de Toilette",
       price: "750 EGP",
       rating: 4.5,
       reviews: 95,
-      image: "/Locally-BGPattern.jpg",
+      image: "/shirt.jpg",
     },
     {
       name: "Gucci Bloom Eau de Parfum",
       price: "900 EGP",
       rating: 4.3,
       reviews: 140,
-      image: "/Locally-BGPattern.jpg",
+      image: "/shorts.jpg",
     },
   ];
 
@@ -101,76 +107,32 @@ export default function NoonNavbar() {
       price: "650 EGP",
       rating: 4.2,
       reviews: 100,
-      image: "/Locally-BGPattern.jpg",
+      image: "/tshirt3.jpg",
     },
     {
       name: "Chanel Bleu de Chanel",
       price: "1100 EGP",
       rating: 4.8,
       reviews: 200,
-      image: "/Locally-BGPattern.jpg",
+      image: "/shirt.jpg",
     },
     {
       name: "YSL La Nuit de L’Homme",
       price: "850 EGP",
       rating: 4.6,
       reviews: 170,
-      image: "/Locally-BGPattern.jpg",
+      image: "/shorts.jpg",
     },
   ];
 
-
-
-  
-
-  
-
-
   return (
     <>
-      <Navbar
-        fluid
-        style={{ backgroundColor: '#FFEFC1' }}
-        className="px-6 shadow-md fixed top-0 left-0 right-0 z-50"
-      >
-        {/* Logo */}
-        <NavbarBrand href="/">
-          <span className="self-center whitespace-nowrap text-3xl font-extrabold text-gray-900">
-            Locallyco
-          </span>
-        </NavbarBrand>
 
-        {/* Search Bar */}
-        <div className="flex flex-1 justify-center mx-6 max-w-2xl">
-          <div className="flex w-full">
-            <TextInput
-              type="text"
-              placeholder="What are you looking for?"
-              className="w-full rounded-l-lg"
-            />
-          </div>
-        </div>
-
-        {/* Right Section */}
-        <div className="flex items-center gap-4">
-     
-
-          {/* Profile */}
-          <Button color="gray" pill>
-            <HiUser className="mr-1 h-5 w-5" />
-            <span className="hidden md:inline">Sign In</span>
-          </Button>
-
-          {/* Cart */}
-          <Button color="gray" pill>
-            <HiShoppingCart className="mr-1 h-5 w-5" />
-            <span className="hidden md:inline">Cart</span>
-          </Button>
-        </div>
-      </Navbar>
+      <NavBar />
+      
 
       {/* Navigation Links below Navbar */}
-      <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
+      {/* <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
         <p>Navigate to the pages through these links:</p>
         <Link href="/product" className="link">Product</Link>
         <Link href="/SignIn" className="link">SignIn</Link>
@@ -180,34 +142,68 @@ export default function NoonNavbar() {
         <Link href="/orders" className="link">Orders</Link>
         <Link href="/profile" className="link">Profile</Link>
         <Link href="/Cart" className="link">Cart</Link>
-      </div>
-
-      {/* hero section */}
-      <div className=" h-full container mx-auto flex justify-start pt-6">
-        {/* hero section */}
+      </div> */}
+<div className="bg-gradient-to-r from-[#40E0D0] via-[#Dcd5b9] to-[#f5f5dc] animate-gradient">
+      <div className="h-full container mx-auto flex justify-start pt-6">
+        {/* Hero wrapper */}
         <div className="relative w-full h-[80vh] rounded-4xl overflow-hidden">
           {/* Background Image */}
-            <Image
-              src="/ai-site-helping-with-software-production.jpg" // replace with your image in public/
-              alt="Hero"
-              fill
-              priority
-              className="object-cover"
-            />
+          <Image
+            src="/ai-site-helping-with-software-production.jpg"
+            alt="Hero"
+            fill
+            priority
+            className="object-cover"
+          />
 
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
 
           {/* Content */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              Summer Arrival of Outfit
+            
+            {/* Animated headline with rotating last word */}
+            <h1 className="flex flex-wrap justify-center items-center text-center font-extrabold mb-4 tracking-tight text-white">
+              <ScrollFloat
+                containerClassName="mr-3 text-[clamp(2rem,5vw,6rem)] font-extrabold"
+                textClassName="inline-block"
+                animationDuration={1.2}
+                stagger={0.05}
+              >
+                Arrival of
+              </ScrollFloat>
+
+              <RotatingText
+                texts={["Outfit", "Collection", "Style"]}
+                mainClassName=" text-[clamp(2rem,5vw,6rem)] font-extrabold text-white py-1 rounded-lg"
+                staggerFrom="last"
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: "-120%", opacity: 0 }}
+                staggerDuration={0.05}
+                splitLevelClassName="overflow-hidden"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
             </h1>
-            <p className="text-lg md:text-xl max-w-2xl mb-6">
+
+
+            {/* Subtext with fade-in */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-lg md:text-xl max-w-2xl mb-6"
+            >
               Discover quality fashion that reflects your style and makes
               everyday enjoyable.
-            </p>
-            <button
+            </motion.p>
+
+            {/* Button with fade & scale */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
               type="button"
               className="inline-flex items-center px-6 py-3 text-base font-medium text-black bg-white rounded-full shadow hover:bg-gray-200 focus:ring-2 focus:ring-offset-2 focus:ring-white"
             >
@@ -225,19 +221,19 @@ export default function NoonNavbar() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </button>
+            </motion.button>
           </div>
         </div>
-
       </div>
+    </div>
 
       {/* Trending brands */}
-
+    <section className="bg-[#d4cda1] pb-7">
       <div className=" h-full container mx-auto flex flex-col justify-start ">
-                  <section className="container mx-auto mt-[32px] bg-amber-950 px-[56px] pb-[24px] rounded-4xl">
-            <div className="flex items-center justify-between mb-[16px] bg-blue-950">
-              <h2 className="text-3xl font-bold bg-fuchsia-500 mx-auto">Trending brands</h2>
-              <a href="#" className="text-black hover:underline bg-indigo-500">
+                  <section className="container mx-auto mt-[32px] bg-[#1b365d] px-[56px] pb-[24px] rounded-4xl py-3">
+            <div className="flex items-center justify-between mb-[16px] ">
+              <h2 className="text-3xl font-bold  mx-auto">Trending brands</h2>
+              <a href="#" className="text-black hover:underline ">
                 View all
               </a>
             </div>
@@ -257,8 +253,8 @@ export default function NoonNavbar() {
               {brands.map((brand, index) => (
                 <SwiperSlide key={index}>
                   <Link href={`/brands/${brand.name.toLowerCase().replace(/\s+/g, "-")}`}>
-                  <div className="bg-gray-200 p-4 rounded-2xl shadow hover:shadow-lg transition w-full">
-                    <div className="flex items-center space-x-4 bg-amber-500">
+                  <div className=" p-4 rounded-2xl shadow hover:shadow-lg transition w-full bg-white">
+                    <div className="flex items-center space-x-4 ">
                       <Image
                         src={brand.image}
                         alt={brand.name}
@@ -266,14 +262,14 @@ export default function NoonNavbar() {
                         height={60}
                         className="rounded-full object-cover"
                       />
-                      <div className="bg-yellow-300">
+                      <div className="">
                         <h3 className="font-semibold text-gray-800">
                           {brand.name}
                         </h3>
                         <p className="text-sm text-gray-500">
                           {brand.products} Products
                         </p>
-                        <div className="flex items-center text-sm bg-zinc-800">
+                        <div className="flex items-center text-sm ">
                           <span className="text-green-600 font-medium mr-1">
                             {brand.rating} ★ 
                           </span>
@@ -286,9 +282,9 @@ export default function NoonNavbar() {
                         </div>
                       </div>
                     </div>
-                    <div className="mt-4 flex space-x-4 text-sm text-gray-600 bg-red-400">
+                    <div className="mt-4 flex space-x-4 text-sm text-gray-600 ">
                       {brand.categories.map((cat, i) => (
-                        <span key={i} className="flex items-center space-x-1 bg-lime-400">
+                        <span key={i} className="flex items-center space-x-1 ">
                           <i className="fa fa-star"></i>
                           <span>{cat}</span>
                         </span>
@@ -301,7 +297,7 @@ export default function NoonNavbar() {
             </Swiper>
           </section>
       </div>
-
+  </section>
       
        {/* flash deals and reccomended for you*/}
       <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -390,12 +386,40 @@ export default function NoonNavbar() {
 
       <Categories />
 
+      {/* DealsBanner */}
+
+      <DealsBanner />
+
+      {/* Recently viewed */}
+
+      <RecentlyViewed />
+
       {/* footer */}
       
       <Footer />
-      
       
 
     </>
   );
 }
+
+// malachite green #3b7a57
+// gold #d4af37
+// sandy biege #Dcd5b9
+// Nile blue #1b365d
+// Turquoise #40E0D0
+// Ancient Red #A52A2A
+// Obsidian black #0B0B0B
+// Papyrus white #f5f5dc
+
+
+
+// bg-gradient-to-r from-[#3b7a57] via-[#d4af37] to-[#40E0D0]
+
+// bg-gradient-to-r from-[#1b365d] via-[#d4af37] to-[#40E0D0]
+
+// bg-gradient-to-r from-[#Dcd5b9] via-[#A52A2A] to-[#3b7a57]
+
+// bg-gradient-to-r from-[#0B0B0B] via-[#1b365d] to-[#d4af37]
+
+// bg-gradient-to-r from-[#f5f5dc] via-[#Dcd5b9] to-[#A52A2A]

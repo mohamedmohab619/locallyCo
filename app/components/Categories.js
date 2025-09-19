@@ -56,7 +56,7 @@ export default function Categories() {
         <section className="py-12 bg-[#E9EAEB]">
                 <div className="container mx-auto">
                     
-            <h2 className="text-4xl font-extrabold text-center mb-10 w-fit mx-auto relative bg-amber-700">
+            <h2 className="text-4xl font-extrabold text-center mb-10 w-fit mx-auto relative">
         Categories
         <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-2"></span>
         </h2>
