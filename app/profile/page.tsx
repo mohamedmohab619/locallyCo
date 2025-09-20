@@ -1,5 +1,6 @@
 import Header from "../favourites/Header";
-import Sidebar from "./Sidebar";
+
+import Sidebar from "../components/Sidebar";
 import ProfileInfo from "./ProfileInfo";
 
 export default function Home(){

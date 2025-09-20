@@ -1,206 +1,290 @@
 "use client";
-
 import React, { useState } from "react";
-import "./product.css";
-import Link from "next/link";
-import Image from "next/image";
-import { Navbar, NavbarBrand, TextInput, Button } from "flowbite-react";
-import { HiUser, HiShoppingCart } from "react-icons/hi";
+import { Rating, RatingStar, Button, Badge } from "flowbite-react";
 
-const images = [
-  "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d53c0d9b-e991-4da3-a988-6e3992894a7c.png",
-];
+export default function BambiBabyTeeProductPage() {
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [size, setSize] = useState("S");
+  const [qty, setQty] = useState(1);
+  const [color, setColor] = useState("#FF6347");
 
-const otherScents = [
-  "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/14d73e1a-9783-4548-8d6c-90a35ee774bd.png",
-  "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a0ef66a6-8e93-421c-9c83-cd1323cb1667.png",
-   "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/14d73e1a-9783-4548-8d6c-90a35ee774bd.png",
- "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/14d73e1a-9783-4548-8d6c-90a35ee774bd.png",
- "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/14d73e1a-9783-4548-8d6c-90a35ee774bd.png",
-];
+  const images = ["/Product-big.webp", "/Product-small1.webp", "/Product-small2.webp"];
+  const colors = ["#FF6347", "#000000", "#ffffff", "#1E90FF"];
+  const sizes = ["XS", "S", "M", "L", "XL"];
 
+  const ratingStats = [
+    { stars: 5, percent: 70 },
+    { stars: 4, percent: 17 },
+    { stars: 3, percent: 8 },
+    { stars: 2, percent: 4 },
+    { stars: 1, percent: 1 },
+  ];
 
-export default function Product() {
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [tab, setTab] = useState("description");
+  function addToCart() {
+    alert(`Added ${qty} × Bambi Baby Tee (size: ${size}, color: ${color}) to cart`);
+  }
 
   return (
-    <div className="product-page">
-      {/* Navbar */}
-      <Navbar
-        fluid
-        style={{ backgroundColor: "#FFEFC1" }}
-        className="px-6 shadow-md fixed top-0 left-0 right-0 z-50"
-      >
-        <NavbarBrand href="/">
-          <span className="self-center whitespace-nowrap text-3xl font-extrabold text-gray-900">
-            Locallyco
-          </span>
-        </NavbarBrand>
-
-        <div className="flex flex-1 justify-center mx-6 max-w-2xl">
-          <div className="flex w-full">
-            <TextInput
-              type="text"
-              placeholder="What are you looking for?"
-              className="w-full rounded-l-lg"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <Button color="gray" pill>
-            <HiUser className="mr-1 h-5 w-5" />
-            <span className="hidden md:inline">Sign In</span>
-          </Button>
-
-          <Button color="gray" pill>
-            <HiShoppingCart className="mr-1 h-5 w-5" />
-            <span className="hidden md:inline">Cart</span>
-          </Button>
-        </div>
-      </Navbar>
-
-      {/* Page Content */}
-      <div className="pt-20 px-4 md:px-8">
-        {/* Breadcrumb */}
-        <nav className="breadcrumb mb-2 text-gray-700 text-sm">
+    <div className="min-h-screen bg-white text-gray-900">
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Breadcrumbs */}
+        <nav className="text-sm text-gray-600 mb-4" aria-label="Breadcrumb">
           <ol className="flex gap-2 items-center">
-            <li>
-              <Link href="/" className="text-blue-600 hover:underline">
-                Home
-              </Link>
-            </li>
-            <li> / Perfume</li>
+            <li><a href="/" className="hover:underline">Home</a></li>
+            <li>/</li>
+            <li><a href="/products" className="hover:underline">Products</a></li>
+            <li>/</li>
+            <li className="font-medium">Bambi Baby Tee</li>
           </ol>
         </nav>
 
-        {/* Main Row */}
-        <main className="main-content flex flex-col md:flex-row gap-6">
-          {/* Gallery */}
-          <section className="gallery-section flex gap-4">
-            <div className="vertical-previews flex flex-col gap-2">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <button
-                  key={i}
-                  className={`preview-thumb border p-1 ${
-                    selectedImageIndex === i ? "border-blue-500" : "border-gray-300"
-                  }`}
-                  onClick={() => setSelectedImageIndex(i)}
-                >
-                  <Image
-                    src={images[selectedImageIndex]}
-                    alt={`Thumbnail ${i + 1}`}
-                    width={60}
-                    height={60}
-                    className="object-cover rounded-md"
-                  />
-                </button>
-              ))}
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+       {/* Left: Product Images */}
+<div className="flex flex-col h-full">
+  {/* Big Image */}
+<div className="overflow-hidden border rounded-2xl shadow-sm relative group">
+  <img
+    src={images[selectedImage]}
+    alt={`Bambi Baby Tee - Image ${selectedImage + 1}`}
+    className="w-full object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
+  />
+</div>
 
-            <div className="main-image-wrapper relative w-full md:w-96">
-              <Image
-                src={images[selectedImageIndex]}
-                alt={`Main product ${selectedImageIndex + 1}`}
-                width={400}
-                height={400}
-                className="main-image rounded-lg"
-              />
-              <button className="wishlist-button absolute top-2 right-2 text-2xl">♡</button>
-            </div>
-          </section>
-
-          {/* Details */}
-          <section className="details-section flex-1 flex flex-col gap-4">
-            <h1 className="product-title text-2xl font-semibold">
-              Dior Sauvage Parfum Spray for Men 2.0 Ounces, clear
-            </h1>
-            <div className="ratings-row flex gap-4 items-center text-sm text-gray-700">
-              <span className="rating-number">4.0 ⭐</span>
-              <a href="#rating-details" className="underline">
-                120 Ratings
-              </a>
-              <span>100+ bought in past month</span>
-            </div>
-            <div className="price text-xl font-bold">500EGP</div>
-
-            <div className="purchase-box flex gap-4 items-center">
-              <div className="seller-info flex items-center gap-2">
-                <Image
-                  src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/12f3d2d9-54ea-4574-a854-d2e756204c5a.png"
-                  alt="Seller"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-                <p>Sold by <strong>Batata</strong></p>
-              </div>
-              <button className="btn add-to-cart bg-gray-300 px-4 py-2 rounded-lg">
-                Add to cart
-              </button>
-              <button className="btn buy-now bg-blue-600 text-white px-4 py-2 rounded-lg">
-                Buy now
-              </button>
-            </div>
-          </section>
-        </main>
-
-        {/* Other Scents */}
-<div className="other-scents mt-6">
-  <span className="other-scents-label font-semibold">Other Scents</span>
-  <div className="scents-thumbs mt-2">
-    {otherScents.slice(0, 5).map((img, i) => ( // slice ensures 5 horizontal
-      <Image
+  {/* Thumbnails */}
+  <div className="mt-4 grid grid-cols-3 gap-3">
+    {images.map((src, i) => (
+      <button
         key={i}
-        src={img}
-        alt={`Scent ${i + 1}`}
-        width={64}
-        height={64}
-        className="scents-thumb object-cover rounded-lg"
-      />
+        onClick={() => setSelectedImage(i)}
+        className={`overflow-hidden rounded-xl border transition-all duration-200 hover:ring-2 hover:ring-blue-300 ${
+          i === selectedImage ? "ring-2 ring-blue-500" : ""
+        }`}
+      >
+        <img
+          src={src}
+          alt={`Thumbnail ${i + 1}`}
+          className="w-full h-48 object-cover rounded-xl"
+        />
+      </button>
     ))}
   </div>
 </div>
 
-        {/* Tabs */}
-        <section className="product-tabs mt-6">
-          <div className="tabs flex gap-2 border-b">
-            <button
-              className={`tab-button ${tab === "description" ? "border-b-2 border-blue-600 pb-1" : ""}`}
-              onClick={() => setTab("description")}
-            >
-              Product Description
-            </button>
-            <button
-              className={`tab-button ${tab === "specifications" ? "border-b-2 border-blue-600 pb-1" : ""}`}
-              onClick={() => setTab("specifications")}
-            >
-              Specifications
-            </button>
-          </div>
 
-          {tab === "description" && (
-            <div className="tab-panel mt-2 text-gray-700">
-              <p>
-                Beyond is a bold and long-lasting fragrance for men who refuse limits. It begins with a warm, spicy kick, setting the stage for an intense heart of black leather, rich and commanding. As it deepens, aromatic cedarwood and earthy patchouli add strength and depth, while a smoky finish enhances its raw, untamed sensuality.
-              </p>
+          {/* Right: Product Info */}
+          <div className="flex flex-col justify-start">
+            <h1 className="text-2xl md:text-3xl font-semibold">Bambi Baby Tee</h1>
+
+            <a href="/brands/asili" className="text-sm text-blue-600 hover:underline mt-1">
+              Brand: Asili
+            </a>
+
+            <div className="flex items-center gap-3 mt-2">
+              <p className="text-2xl font-bold text-gray-900">EGP 350.00</p>
+              <p className="line-through text-gray-400 text-lg">EGP 420.00</p>
+              <Badge color="success">Save 15%</Badge>
             </div>
-          )}
 
-          {tab === "specifications" && (
-            <div className="tab-panel mt-2 text-gray-700">
-              <p>Specifications content goes here.</p>
-              <h3 className="font-semibold mt-2">Highlights</h3>
-              <ul className="list-disc list-inside">
-                <li>Bold & Intense – A powerful blend of leather, spice, and woods.</li>
-                <li>Dark & Mysterious – A smoky, sensual trail that lingers.</li>
-                <li>Masculine & Commanding – Perfect for those who embrace strength and individuality.</li>
-                <li>Long-Lasting Presence – A scent that stays with you from day to day.</li>
+            {/* Ratings summary */}
+            <div className="flex items-center gap-2 mt-2">
+              <Rating>
+                {[1, 2, 3, 4].map((i) => (
+                  <RatingStar key={i} filled={true} />
+                ))}
+                <RatingStar filled={false} />
+                <p className="ml-2 text-sm font-medium text-gray-700">4.3</p>
+              </Rating>
+              <a href="#reviews" className="text-sm text-blue-600 underline">
+                20,587 Ratings
+              </a>
+            </div>
+
+            <div className="mt-4 text-sm">
+              <Badge color="success">In Stock</Badge>
+            </div>
+
+            {/* Size selector */}
+            <div className="mt-6">
+              <h3 className="text-sm font-medium mb-2">Size</h3>
+              <div className="flex gap-2">
+                {sizes.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setSize(s)}
+                    className={`px-3 py-2 rounded-md border focus:outline-none ${
+                      size === s ? "bg-gray-900 text-white" : "bg-white text-gray-700"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Color selector */}
+            <div className="mt-6">
+              <h3 className="text-sm font-medium mb-2">Color</h3>
+              <div className="flex gap-3">
+                {colors.map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => setColor(c)}
+                    className={`w-8 h-8 rounded-full border-2 focus:outline-none ${
+                      color === c ? "ring-2 ring-gray-900" : ""
+                    }`}
+                    style={{ backgroundColor: c }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Quantity selector */}
+            <div className="mt-6 flex items-center gap-3">
+              <h3 className="text-sm font-medium">Quantity</h3>
+              <div className="flex items-center border rounded">
+                <button
+                  onClick={() => setQty(Math.max(1, qty - 1))}
+                  className="px-3 py-1 border-r"
+                >
+                  −
+                </button>
+                <span className="px-4">{qty}</span>
+                <button
+                  onClick={() => setQty(qty + 1)}
+                  className="px-3 py-1 border-l"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="mt-6 flex flex-col gap-3">
+              <Button
+                onClick={addToCart}
+                className="w-80 bg-[#FF6347] hover:bg-[#ff7a5e] text-white font-medium shadow"
+              >
+                Add to Cart
+              </Button>
+              <Button outline className="w-80">
+                Buy Now
+              </Button>
+            </div>
+
+            {/* Product Tabs */}
+            <div className="mt-8">
+              <h2 className="text-lg font-semibold">Product Details</h2>
+              <p className="mt-2 text-gray-700 leading-relaxed">
+                Soft cotton baby tee featuring a playful Bambi graphic. Comfortable fit and durable stitching.
+              </p>
+              <ul className="mt-3 text-gray-700 list-disc list-inside">
+                <li>100% Cotton</li>
+                <li>Machine wash cold</li>
+                <li>Made with safe dyes</li>
               </ul>
             </div>
-          )}
+
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600">
+              <div>
+                <h3 className="font-medium">Shipping</h3>
+                <p>Free shipping over EGP 500. Local delivery 2-4 days.</p>
+              </div>
+              <div>
+                <h3 className="font-medium">Return Policy</h3>
+                <p>Returns accepted within 7 days of delivery. Item must be unused.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Ratings & Reviews */}
+        <section id="reviews" className="mt-12">
+          <h2 className="text-2xl font-semibold mb-6">Product Ratings & Reviews</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Rating Breakdown */}
+            <div>
+              <div className="flex items-center mb-2">
+                <Rating>
+                  {[1, 2, 3, 4].map((i) => (
+                    <RatingStar key={i} filled={true} />
+                  ))}
+                  <RatingStar filled={false} />
+                  <p className="ml-2 text-sm font-medium text-gray-700">4.95 out of 5</p>
+                </Rating>
+              </div>
+              <p className="text-sm font-medium text-gray-500">1,745 global ratings</p>
+
+              <div className="space-y-2 mt-4 ">
+                {ratingStats.map(({ stars, percent }) => (
+                  <div key={stars} className="flex items-center">
+                    <a href="#" className="text-sm font-medium text-blue-600 hover:underline">
+                      {stars} star
+                    </a>
+                    <div className="w-2/4 h-3 mx-4 bg-gray-200 rounded-sm">
+                      <div
+                        className="h-3 bg-yellow-300 rounded-sm"
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
+                    <span className="text-sm text-gray-500">{percent}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Reviews */}
+            <div>
+              <div className="flex items-center justify-between ">
+                <h3 className="text-lg font-semibold">Customer Reviews</h3>
+                <Button size="xs" outline>
+                  Write a Review
+                </Button>
+              </div>
+              <div className="mt-4 space-y-4 ">
+                {[
+                  { name: "Amina", time: "5 days ago", text: "Lovely material and perfect fit." },
+                  { name: "Omar", time: "2 weeks ago", text: "Nice print and fast delivery." },
+                  { name: "Mo", time: "2 weeks ago", text: "Fast delivery." },
+                ].map((r, i) => (
+                  <div key={i} className="border rounded 2xl p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="font-medium">
+                        {r.name} <Badge color="gray">Verified</Badge>
+                      </div>
+                      <div className="text-xs text-gray-500">{r.time}</div>
+                    </div>
+                    <p className="mt-2 text-gray-700">{r.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
+
+        {/* Related Products */}
+        <section className="mt-12 ">
+          <h2 className="text-2xl font-semibold mb-6">You May Also Like</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            {["/Product-small1.webp", "/Product-small2.webp", "/Product-big.webp", "/Product-small1.webp"].map(
+              (p, i) => (
+                <div
+                  key={i}
+                  className="border rounded-md p-2 hover:shadow transition"
+                >
+                  <img
+                    src={p}
+                    alt="Related product"
+                    className="w-full h-40 object-cover rounded"
+                  />
+                  <p className="mt-2 text-sm font-medium">Product {i + 1}</p>
+                  <p className="text-gray-600 text-sm">EGP 299.00</p>
+                </div>
+              )
+            )}
+          </div>
+        </section>
+
+        <div className="h-20" />
       </div>
     </div>
   );
