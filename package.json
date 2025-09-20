@@ -9,35 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@react-google-maps/api": "^2.20.7",
-=======
-    "@studio-freight/lenis": "^1.0.42",
->>>>>>> e189f66dfeedc341d759af84eea139cea3bcc67a
     "bootstrap": "^5.3.7",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.12.8",
     "framer-motion": "^12.23.15",
     "google-one-tap": "^1.0.6",
-<<<<<<< HEAD
-    "leaflet": "^1.9.4",
-=======
-    "gsap": "^3.13.0",
-    "lenis": "^1.3.11",
-    "motion": "^12.23.15",
->>>>>>> e189f66dfeedc341d759af84eea139cea3bcc67a
     "next": "15.4.6",
     "next-auth": "^4.24.11",
     "react": "19.1.0",
     "react-bits": "^1.0.5",
     "react-dom": "19.1.0",
-    "react-icons": "^5.5.0",
-<<<<<<< HEAD
-    "react-leaflet": "^5.0.0"
-=======
-    "react-native-web": "^0.21.1",
-    "swiper": "^12.0.1"
->>>>>>> e189f66dfeedc341d759af84eea139cea3bcc67a
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
