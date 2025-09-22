@@ -1,16 +1,60 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rating, RatingStar, Button, Badge } from "flowbite-react";
-
 export default function BambiBabyTeeProductPage() {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [size, setSize] = useState("S");
-  const [qty, setQty] = useState(1);
-  const [color, setColor] = useState("#FF6347");
+  // defaults while loading
+  const [images, setImages] = useState(["https://prd.place/400?id=5&p=40", "https://prd.place/400?id=6&p=40", "https://prd.place/400?id=7&p=40"]);
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
 
-  const images = ["/Product-big.webp", "/Product-small1.webp", "/Product-small2.webp"];
-  const colors = ["#FF6347", "#000000", "#ffffff", "#1E90FF"];
-  const sizes = ["XS", "S", "M", "L", "XL"];
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [size, setSize] = useState(sizes[1]);
+  const [qty, setQty] = useState(1);
+  const [color, setColor] = useState(colors[0]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('http://localhost:8888/api/v1/products/20');
+        if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
+        let data = await res.json();
+        data = data.result;
+        console.log("fetched data:", data);
+        if (!mounted) return;
+        // adapt this mapping depending on your API shape
+        // assume API returns an object with attributes and images similar to the earlier code
+        setSelectedProduct(data);
+        if (data?.images && Array.isArray(data.images) && data.images.length) {
+          setImages(data.images);
+          setSelectedImage(0);
+        }
+        if (data?.versioning?.attributes?.color?.values) setColors(data.versioning?.attributes.color.values);
+        if (data?.versioning?.attributes?.size?.values) setSizes(data.versioning?.attributes.size.values);
+
+        console.log("new colors", data.versioning.attributes.color.values);
+        console.log("new sizes", data.versioning.attributes.size.values);
+
+        // set sensible defaults after data arrives
+        setSize((prev) => (data?.attributes?.size?.values?.[0] ?? prev));
+        setColor((prev) => (data?.attributes?.color?.values?.[0] ?? prev));
+      } catch (err) {
+        console.error(err);
+        if (mounted) setError(err.message ?? String(err));
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+    load();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const ratingStats = [
     { stars: 5, percent: 70 },
@@ -27,6 +71,12 @@ export default function BambiBabyTeeProductPage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <div className="max-w-6xl mx-auto p-6">
+        {loading && (
+          <div className="mb-4 text-sm text-gray-600">Loading product...</div>
+        )}
+        {error && (
+          <div className="mb-4 text-sm text-red-600">Error loading product: {error}</div>
+        )}
         {/* Breadcrumbs */}
         <nav className="text-sm text-gray-600 mb-4" aria-label="Breadcrumb">
           <ol className="flex gap-2 items-center">
@@ -111,7 +161,7 @@ export default function BambiBabyTeeProductPage() {
                   <button
                     key={s}
                     onClick={() => setSize(s)}
-                    className={`px-3 py-2 rounded-md border focus:outline-none ${
+                    className={`px-3 py-2 rounded-md border focus:outline-none uppercase ${
                       size === s ? "bg-gray-900 text-white" : "bg-white text-gray-700"
                     }`}
                   >
