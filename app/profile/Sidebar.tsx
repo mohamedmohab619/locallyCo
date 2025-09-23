@@ -6,6 +6,7 @@ import React from "react";
 type SidebarProps = {
   title: string;
   icon?: React.ReactNode;
+  href: string;
 };
 
 export default function Sidebar(props: SidebarProps){
@@ -15,7 +16,7 @@ export default function Sidebar(props: SidebarProps){
 //   }, []);
     return(
          <li className="bg-yellow-50 dark:bg-gray-800">
-            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href={props.href} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                {props.icon}
                <span className="ms-3">{props.title}</span>
             </a>
