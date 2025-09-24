@@ -33,7 +33,6 @@ export default function ProfileInfo() {
                   />
                 </div>
 
-                </div>
                 <div>
                   <label htmlFor="birthdate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Birthdate
