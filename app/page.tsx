@@ -132,7 +132,7 @@ export default function NoonNavbar() {
       
 
       {/* Navigation Links below Navbar */}
-      {/* <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
+      <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
         <p>Navigate to the pages through these links:</p>
         <Link href="/product" className="link">Product</Link>
         <Link href="/SignIn" className="link">SignIn</Link>
@@ -142,7 +142,7 @@ export default function NoonNavbar() {
         <Link href="/orders" className="link">Orders</Link>
         <Link href="/profile" className="link">Profile</Link>
         <Link href="/Cart" className="link">Cart</Link>
-      </div> */}
+      </div>
 <div className="bg-gradient-to-r from-[#40E0D0] via-[#Dcd5b9] to-[#f5f5dc] animate-gradient">
       <div className="h-full container mx-auto flex justify-start pt-6">
         {/* Hero wrapper */}
