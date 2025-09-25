@@ -1,17 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Rating, RatingStar, Button, Badge } from "flowbite-react";
+
 export default function BambiBabyTeeProductPage() {
   // defaults while loading
   const [images, setImages] = useState(["https://prd.place/400?id=5&p=40", "https://prd.place/400?id=6&p=40", "https://prd.place/400?id=7&p=40"]);
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  // TODO: set productId from props or route in future; default to 30 for now
+  const [productId, setProductId] = useState(2);
+  const [currentProduct, setCurrentProduct] = useState({});
+  const [currentVersion, setCurrentVersion] = useState(null);
+  const [skuCode, setSkuCode] = useState("");
+  const [productVersions, setProductVersions] = useState([]);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [size, setSize] = useState(sizes[1]);
+  const [selectedSize, setSelectedSize] = useState(sizes[1]);
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [qty, setQty] = useState(1);
-  const [color, setColor] = useState(colors[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -21,7 +27,8 @@ export default function BambiBabyTeeProductPage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('http://localhost:8888/api/v1/products/20');
+        // TODO: get product's (id, name, etc...) from the preview page
+        const res = await fetch(`http://localhost:8888/api/v1/products/${productId}`);
         if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
         let data = await res.json();
         data = data.result;
@@ -29,20 +36,30 @@ export default function BambiBabyTeeProductPage() {
         if (!mounted) return;
         // adapt this mapping depending on your API shape
         // assume API returns an object with attributes and images similar to the earlier code
-        setSelectedProduct(data);
-        if (data?.images && Array.isArray(data.images) && data.images.length) {
-          setImages(data.images);
-          setSelectedImage(0);
-        }
-        if (data?.versioning?.attributes?.color?.values) setColors(data.versioning?.attributes.color.values);
-        if (data?.versioning?.attributes?.size?.values) setSizes(data.versioning?.attributes.size.values);
+        setCurrentProduct(data);
+        if (data?.versioning?.attributes?.color?.values) setColors(data?.versioning?.attributes.color.values);
+        if (data?.versioning?.attributes?.size?.values) setSizes(data?.versioning?.attributes.size.values);
 
-        console.log("new colors", data.versioning.attributes.color.values);
-        console.log("new sizes", data.versioning.attributes.size.values);
+        console.log("new colors", data?.versioning?.attributes?.color?.values);
+        console.log("new sizes", data?.versioning?.attributes?.size?.values);
 
         // set sensible defaults after data arrives
-        setSize((prev) => (data?.attributes?.size?.values?.[0] ?? prev));
-        setColor((prev) => (data?.attributes?.color?.values?.[0] ?? prev));
+        setSelectedSize((prev) => (data?.attributes?.size?.values?.[0] ?? prev));
+        setSelectedColor((prev) => (data?.attributes?.color?.values?.[0] ?? prev));
+        setImages([data?.imageUrl]);
+
+        const resultRes = await fetch(`http://localhost:8888/api/v1/products/${productId}/versions`);
+        if (!resultRes.ok) throw new Error(`fetch failed: ${resultRes.status}`);
+        const resultData = await resultRes.json();
+        setProductVersions(resultData.result);
+        console.log('Product Versions', resultData.result);
+
+        const curVer = resultData.result[0];
+        console.log(`current version: ${curVer}`)
+        setCurrentVersion(curVer);
+        setSkuCode((prev) => (curVer?.skuCode ?? prev));
+        setSelectedSize((prev) => (curVer?.size ?? prev));
+        setSelectedColor((prev) => (curVer?.color ?? prev));
       } catch (err) {
         console.error(err);
         if (mounted) setError(err.message ?? String(err));
@@ -50,11 +67,11 @@ export default function BambiBabyTeeProductPage() {
         if (mounted) setLoading(false);
       }
     }
-    load();
+    if (productId) load();
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [productId]);
 
   const ratingStats = [
     { stars: 5, percent: 70 },
@@ -65,7 +82,8 @@ export default function BambiBabyTeeProductPage() {
   ];
 
   function addToCart() {
-    alert(`Added ${qty} × Bambi Baby Tee (size: ${size}, color: ${color}) to cart`);
+    // TODO: implement adding to cart functionality
+    alert(`Added ${qty} × ${currentProduct?.name} (size: ${selectedSize}, color: ${selectedColor}) to cart`);
   }
 
   return (
@@ -84,58 +102,59 @@ export default function BambiBabyTeeProductPage() {
             <li>/</li>
             <li><a href="/products" className="hover:underline">Products</a></li>
             <li>/</li>
-            <li className="font-medium">Bambi Baby Tee</li>
+            <li className="font-medium">{currentProduct?.name}</li>
           </ol>
         </nav>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-       {/* Left: Product Images */}
-<div className="flex flex-col h-full">
-  {/* Big Image */}
-<div className="overflow-hidden border rounded-2xl shadow-sm relative group">
-  <img
-    src={images[selectedImage]}
-    alt={`Bambi Baby Tee - Image ${selectedImage + 1}`}
-    className="w-full object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
-  />
-</div>
+          {/* Left: Product Images */}
+          <div className="flex flex-col h-full">
+            {/* Big Image */}
+            <div className="overflow-hidden border rounded-2xl shadow-sm relative group">
+              <img
+                src={images[selectedImage]}
+                alt={`${currentProduct?.name} - Image ${selectedImage + 1}`}
+                className="w-full object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
 
-  {/* Thumbnails */}
-  <div className="mt-4 grid grid-cols-3 gap-3">
-    {images.map((src, i) => (
-      <button
-        key={i}
-        onClick={() => setSelectedImage(i)}
-        className={`overflow-hidden rounded-xl border transition-all duration-200 hover:ring-2 hover:ring-blue-300 ${
-          i === selectedImage ? "ring-2 ring-blue-500" : ""
-        }`}
-      >
-        <img
-          src={src}
-          alt={`Thumbnail ${i + 1}`}
-          className="w-full h-48 object-cover rounded-xl"
-        />
-      </button>
-    ))}
-  </div>
-</div>
+            {/* Thumbnails */}
+            <div className="mt-4 grid grid-cols-3 gap-3">
+              {images.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSelectedImage(i)}
+                  className={`overflow-hidden rounded-xl border transition-all duration-200 hover:ring-2 hover:ring-blue-300 ${i === selectedImage ? "ring-2 ring-blue-500" : ""
+                    }`}
+                >
+                  <img
+                    src={src}
+                    alt={`Thumbnail ${i + 1}`}
+                    className="w-full h-48 object-cover rounded-xl"
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
 
 
           {/* Right: Product Info */}
           <div className="flex flex-col justify-start">
-            <h1 className="text-2xl md:text-3xl font-semibold">Bambi Baby Tee</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold">{currentProduct?.name ?? ""}</h1>
 
-            <a href="/brands/asili" className="text-sm text-blue-600 hover:underline mt-1">
-              Brand: Asili
+            <a href={`/brands/${currentProduct?.brand?.name ?? ""}`} className="text-sm text-blue-600 hover:underline mt-1">
+              Brand: {currentProduct?.brand?.name ?? ""}
             </a>
 
             <div className="flex items-center gap-3 mt-2">
-              <p className="text-2xl font-bold text-gray-900">EGP 350.00</p>
-              <p className="line-through text-gray-400 text-lg">EGP 420.00</p>
-              <Badge color="success">Save 15%</Badge>
+              {/* TODO: handle discount/offer data */}
+              <p className="text-2xl font-bold text-gray-900">EGP {(currentVersion?.priceCent / 100) ?? 0}</p>
+              <p className="line-through text-gray-400 text-lg">EGP {((currentVersion?.priceCent + 1000) / 100) ?? 0}</p>
+              <Badge className="text-green-500">Save 15%</Badge>
             </div>
 
             {/* Ratings summary */}
+            {/* TODO: include rating data in the API */}
             <div className="flex items-center gap-2 mt-2">
               <Rating>
                 {[1, 2, 3, 4].map((i) => (
@@ -150,7 +169,10 @@ export default function BambiBabyTeeProductPage() {
             </div>
 
             <div className="mt-4 text-sm">
-              <Badge color="success">In Stock</Badge>
+              <span>SKU: {skuCode}</span>
+
+              {/* TODO: parse current version quantity then render stock state accordingly */}
+              <Badge className="inline text-green-500">In Stock</Badge>
             </div>
 
             {/* Size selector */}
@@ -160,10 +182,9 @@ export default function BambiBabyTeeProductPage() {
                 {sizes.map((s) => (
                   <button
                     key={s}
-                    onClick={() => setSize(s)}
-                    className={`px-3 py-2 rounded-md border focus:outline-none uppercase ${
-                      size === s ? "bg-gray-900 text-white" : "bg-white text-gray-700"
-                    }`}
+                    onClick={() => setSelectedSize(s)}
+                    className={`px-3 py-2 rounded-md border focus:outline-none uppercase ${selectedSize === s ? "bg-gray-900 text-white" : "bg-white text-gray-700"
+                      }`}
                   >
                     {s}
                   </button>
@@ -178,10 +199,9 @@ export default function BambiBabyTeeProductPage() {
                 {colors.map((c) => (
                   <button
                     key={c}
-                    onClick={() => setColor(c)}
-                    className={`w-8 h-8 rounded-full border-2 focus:outline-none ${
-                      color === c ? "ring-2 ring-gray-900" : ""
-                    }`}
+                    onClick={() => setSelectedColor(c)}
+                    className={`w-8 h-8 rounded-full border-2 focus:outline-none ${selectedColor === c ? "ring-2 ring-gray-900" : ""
+                      }`}
                     style={{ backgroundColor: c }}
                   />
                 ))}
@@ -224,9 +244,7 @@ export default function BambiBabyTeeProductPage() {
             {/* Product Tabs */}
             <div className="mt-8">
               <h2 className="text-lg font-semibold">Product Details</h2>
-              <p className="mt-2 text-gray-700 leading-relaxed">
-                Soft cotton baby tee featuring a playful Bambi graphic. Comfortable fit and durable stitching.
-              </p>
+              <p className="mt-2 text-gray-700 leading-relaxed">{currentProduct?.description}</p>
               <ul className="mt-3 text-gray-700 list-disc list-inside">
                 <li>100% Cotton</li>
                 <li>Machine wash cold</li>
@@ -315,7 +333,7 @@ export default function BambiBabyTeeProductPage() {
         <section className="mt-12 ">
           <h2 className="text-2xl font-semibold mb-6">You May Also Like</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {["/Product-small1.webp", "/Product-small2.webp", "/Product-big.webp", "/Product-small1.webp"].map(
+            {["https://prd.place/400?id=5&p=40", "https://prd.place/400?id=6&p=40", "https://prd.place/400?id=7&p=40", "https://prd.place/400?id=8&p=40"].map(
               (p, i) => (
                 <div
                   key={i}

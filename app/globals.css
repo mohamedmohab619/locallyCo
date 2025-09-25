@@ -29,12 +29,31 @@ body {
 } */
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+.font-quicksand {
+  font-family: var(--font-quicksand);
+}
+
+@theme {
+  --color-beige: #fffcf2;
+  --color-dark-brown: #210906;
+  --color-brown: #5c0b00;
+  --color-light-brown: #94492e;
+  --color-dark-gray:#4f4f4f;
+  --color-light-gray:#b0b0b0;
 }

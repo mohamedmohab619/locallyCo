@@ -1,6 +1,6 @@
-import "./Cart.css"; 
+import "./Cart.css";
 import Image from "next/image";
-
+import { BsTrash3Fill } from "react-icons/bs";
 
 const products = [
   {
@@ -12,7 +12,7 @@ const products = [
     seller: "ELOGAIL",
     delivery: "Get it by Tue, Sep 9",
     badges: ["Prepaid only"],
-    image: "/Locally-BGPattern.jpg",
+    image: "/shoes.jpg",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const products = [
     seller: "zakaria sons",
     delivery: "Get it Tomorrow",
     badges: ["express", "Free Delivery"],
-    image: "/Locally-BGPattern.jpg",
+    image: "/shoes.jpg",
   },
   {
     id: 3,
@@ -31,84 +31,92 @@ const products = [
     discount: "56% OFF",
     seller: "Best Electronic",
     delivery: "Get it Tomorrow",
-    image: "/Locally-BGPattern.jpg",
+    image: "/shoes.jpg",
   },
 ];
 
 export default function Cart() {
+  const styleBtn =
+    "bg-brown px-3 py-1 text-beige text-sm font-bold cursor-pointer hover:bg-dark-brown duration-300";
   return (
-     <div className="space-y-4">
+    <div className=" xl:w-[50%]">
       {products.map((product) => (
         <div
           key={product.id}
-          className="flex items-center justify-between bg-white border border-gray-200 rounded-lg shadow-sm p-4 dark:bg-gray-800 dark:border-gray-700"
+          className="w-full xl:h-48 my-1 flex  gap-3 items-center justify-between flex-wrap md:flex-nowrap rounded-lg bg-beige"
         >
           {/* Left: Image */}
-          <Image
-            src={product.image}
-            alt={product.name}
-            width={120}
-            height={120}
-            className="object-contain w-32 h-32 rounded-md"
-          />
-
-          {/* Middle: Details */}
-          <div className="flex-1 px-4">
-            <h5 className="text-sm font-semibold text-gray-900 dark:text-white">
-              {product.name}
-            </h5>
-            <p className="text-xs text-green-600 font-medium">{product.delivery}</p>
-            <p className="text-xs text-gray-600">
-              Sold by <span className="font-semibold">{product.seller}</span>
-            </p>
-
-            {/* Remove button */}
-            <button className="mt-2 flex items-center px-3 py-1 text-xs font-medium border border-gray-300 rounded-md hover:bg-gray-100">
-              Remove
-            </button>
+          <div className=" md:w-48 w-full h-42">
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={120}
+              height={120}
+              className="object-cover w-full h-42 rounded-md mx-2"
+            />
           </div>
 
-          {/* Right: Price + Badges + Qty */}
-          <div className="flex flex-col items-end space-y-2">
-            <div className="text-right">
-              <p className="text-lg font-bold text-gray-900 dark:text-white">
-                EGP {product.price}
-              </p>
-              {product.oldPrice && (
-                <p className="text-xs line-through text-gray-400">
-                  EGP {product.oldPrice}
-                </p>
-              )}
-              {product.discount && (
-                <span className="text-xs font-semibold text-green-600">
-                  {product.discount}
-                </span>
-              )}
-            </div>
+          {/* Middle: Details */}
 
+          <div className="px-3 py-5">
+            <div className="flex justify-between">
+              <div className="w-[60%]">
+                <h5 className="text-sm font-bold text-dark-brown">
+                  {product.name}
+                </h5>
+                <p className="text-sm text-brown my-2 font-medium">
+                  {product.delivery}
+                </p>
+                <p className="text-xs text-dark-gray">
+                  Sold by
+                  <span className="font-semibold">{product.seller}</span>
+                </p>
+              </div>
+
+              <div>
+                {/* Remove button */}
+                <button className="mt-2 flex justify-end-safe gap-1 px-3 py-1 text-xl text-brown cursor-pointer duration-300 font-bold hover:text-dark-brown">
+                  <BsTrash3Fill />
+                </button>
+              </div>
+
+              {/* Qty selector */}
+            </div>
+            <div className="flex justify-between items-center flex-wrap">
+              <div className="flex items-center gap-2 my-2">
+                <p className="text-xl font-bold text-dark-brown"> LE 200 </p>
+                <div className="text-xs">
+                  <p className="text-light-gray line-through"> LE 300 </p>
+                  <p className="text-green-600"> 10% off </p>
+                </div>
+              </div>
+
+              <div>
+                <form className="flex">
+                  <button className={styleBtn}> - </button>
+                  <input
+                    type="number"
+                    defaultValue={1}
+                    min={1}
+                    className="border-1 border-brown w-16 px-3 outline-none"
+                  />
+                  <button className={styleBtn}> + </button>
+                </form>
+              </div>
+            </div>
             {/* Badges */}
             {product.badges && (
-              <div className="flex flex-wrap gap-2 justify-end">
+              <div className="flex flex-wrap gap-2">
                 {product.badges.map((badge, i) => (
                   <span
                     key={i}
-                    className="px-2 py-0.5 text-xs font-semibold text-yellow-700 bg-yellow-300 rounded"
+                    className="px-2 py-0.5 text-xs font-semibold text-beige bg-light-gray/70 rounded"
                   >
                     {badge}
                   </span>
                 ))}
               </div>
             )}
-
-            {/* Qty selector */}
-            <div className="flex items-center space-x-1 text-sm">
-              <span className="text-gray-500">Qty</span>
-              <select className="border rounded-md px-2 py-1 text-sm">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </select>
-            </div>
           </div>
         </div>
       ))}
