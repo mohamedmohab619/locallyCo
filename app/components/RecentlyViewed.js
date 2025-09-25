@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation, Autoplay } from "swiper/modules";
+import {  Autoplay } from "swiper/modules";
 import TiltedWrapper from "./TiltedWrapper";
 import HomeProductCard from "./HomeProductCard";
 
@@ -21,7 +21,7 @@ export default function RecentlyViewed() {
       <div className="container mx-auto bg-[#E9EAEB] rounded-3xl p-11">
         <h2 className="text-2xl font-bold mb-6">Recently Viewed</h2>
         <Swiper
-          modules={[Navigation, Autoplay]}
+          modules={[Autoplay]}
           navigation
           autoplay={{ delay: 4000, disableOnInteraction: false }}
           loop
