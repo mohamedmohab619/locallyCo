@@ -7,7 +7,7 @@ export default function Page() {
   return (
       <>
          <Navbar />
-         <div className="mt-4 flex flex-row justify-end">
+         <div className="mt-4 flex flex-row justify-end gap-4">
             <Sort />
             <Filter />
          </div>
