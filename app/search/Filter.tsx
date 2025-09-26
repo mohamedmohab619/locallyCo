@@ -74,7 +74,7 @@ export default function Filter(){
 
     return(
         <div className="rounded-2xl">
-            <div id="accordion-collapse" data-accordion="collapse">
+            <div id="accordion-collapse" data-accordion="open">
                 <h2 id="accordion-collapse-heading">
                     <button
                         type="button" 
