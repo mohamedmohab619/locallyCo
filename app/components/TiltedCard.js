@@ -86,28 +86,37 @@ export default function TiltedCard({
         </div>
       )}
 
-      <motion.div
-        className="relative [transform-style:preserve-3d] cursor-pointer"
-        style={{ width: imageWidth, height: imageHeight, rotateX, rotateY, scale }}
-      >
-        {link ? (
-          <Link href={link} className="block w-full h-full">
-            <motion.img
-              src={imageSrc}
-              alt={altText}
-              className="absolute top-0 left-0 object-contain rounded-full will-change-transform [transform:translateZ(0)] p-4 "
-              style={{ width: imageWidth, height: imageHeight }}
-            />
-          </Link>
-        ) : (
-          <motion.img
-            src={imageSrc}
-            alt={altText}
-            className="absolute top-0 left-0 object-contain rounded-full will-change-transform [transform:translateZ(0)] bg-white p-4"
-            style={{ width: imageWidth, height: imageHeight }}
-          />
-        )}
-      </motion.div>
+            <motion.div
+            className="relative [transform-style:preserve-3d] cursor-pointer overflow-hidden"
+            style={{
+              width: imageWidth,
+              height: imageHeight,
+              rotateX,
+              rotateY,
+              scale,
+              clipPath: "circle(50% at 50% 50%)", // ⬅️ limits both visuals + clicks to circle
+            }}
+          >
+            {link ? (
+              <Link
+                href={link}
+                className="block w-full h-full"
+                style={{ clipPath: "circle(50% at 50% 50%)" }} // ⬅️ applies to link too
+              >
+                <motion.img
+                  src={imageSrc}
+                  alt={altText}
+                  className="absolute top-0 left-0 w-full h-full object-cover will-change-transform [transform:translateZ(0)]"
+                />
+              </Link>
+            ) : (
+              <motion.img
+                src={imageSrc}
+                alt={altText}
+                className="absolute top-0 left-0 w-full h-full object-cover will-change-transform [transform:translateZ(0)]"
+              />
+            )}
+          </motion.div>
 
       {showTooltip && (
         <motion.figcaption

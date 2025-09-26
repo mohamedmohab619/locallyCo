@@ -7,3 +7,8 @@
     background-color: #FAF4ED !important;
     color: #717680 !important;
 }
+
+/* [data-accordion="collapse"] [aria-expanded="true"] + .hidden,
+[data-accordion="collapse"] [aria-expanded="true"] + div {
+  background-color: #fff !important;
+} */

@@ -14,7 +14,7 @@ import { HiSearch, HiShoppingCart, HiUser } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -35,6 +35,9 @@ import ScrollFloat from "./components/ScrollFloat"; // make sure this is your Sc
 import { motion } from "framer-motion";
 import RotatingText from "./components/RotatingText";
 import TiltedCard from "./components/TiltedCard";
+
+import HomeProductCard from "./components/HomeProductCard";
+import TiltedWrapper from "./components/TiltedWrapper.js";
 
 export default function NoonNavbar() {
   const brands = [
@@ -166,21 +169,27 @@ export default function NoonNavbar() {
       price: "500 EGP",
       rating: 4.0,
       reviews: 120,
-      image: "/tshirt3.jpg",
+      image: "/shoes6.jpg",
+      brand: "Dior", // ✅ added
+      badge: "Limited Offer", // ✅ added
     },
     {
       name: "Armani Code Eau de Toilette",
       price: "750 EGP",
       rating: 4.5,
       reviews: 95,
-      image: "/shirt.jpg",
+      image: "/shoes6.jpg",
+      brand: "Armani",
+      badge: "Best Seller",
     },
     {
       name: "Gucci Bloom Eau de Parfum",
       price: "900 EGP",
       rating: 4.3,
       reviews: 140,
-      image: "/shorts.jpg",
+      image: "/shoes6.jpg",
+      brand: "Gucci",
+      badge: "Hot Deal",
     },
   ];
 
@@ -191,6 +200,8 @@ export default function NoonNavbar() {
       rating: 4.2,
       reviews: 100,
       image: "/tshirt3.jpg",
+      brand: "Dior",
+      badge: "Limited Offer",
     },
     {
       name: "Chanel Bleu de Chanel",
@@ -198,6 +209,8 @@ export default function NoonNavbar() {
       rating: 4.8,
       reviews: 200,
       image: "/shirt.jpg",
+      brand: "Dior",
+      badge: "Limited Offer",
     },
     {
       name: "YSL La Nuit de L’Homme",
@@ -205,6 +218,8 @@ export default function NoonNavbar() {
       rating: 4.6,
       reviews: 170,
       image: "/shorts.jpg",
+      brand: "Dior",
+      badge: "Limited Offer",
     },
   ];
 
@@ -467,6 +482,156 @@ export default function NoonNavbar() {
                     <span className="text-gray-500">({item.reviews})</span>
                   </div>
                 </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
+
+      {/* Trending brands */}
+      <section className="bg-[#d4cda1] pb-7 ">
+        <div className="h-full flex flex-col justify-start">
+          {/* Blue section full width */}
+          <section className="w-full mt-[32px] bg-[#1b365d] px-[32px] pb-[32px] py-6">
+            <div className="flex items-center justify-between mb-[24px]">
+              <h2 className="text-4xl font-extrabold text-center w-fit mx-auto relative text-white">
+                Trending Brands
+                <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
+              </h2>
+
+              <a
+                href="#"
+                className="ml-4 px-5 py-2 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200"
+              >
+                View all
+              </a>
+            </div>
+
+            <Swiper
+              modules={[Autoplay]}
+              slidesPerView={9}
+              spaceBetween={1}
+              breakpoints={{
+                480: { slidesPerView: 2, spaceBetween: 12 },
+                640: { slidesPerView: 3, spaceBetween: 16 },
+                768: { slidesPerView: 4, spaceBetween: 20 },
+                1024: { slidesPerView: 6, spaceBetween: 24 },
+                1280: { slidesPerView: 8, spaceBetween: 28 },
+              }}
+              autoplay={{
+                delay: 1500, // time between slides in ms
+                disableOnInteraction: false, // continue autoplay after interaction
+              }}
+              loop={true} // makes the slider loop infinitely
+              pagination={{ clickable: true }}
+              className="pb-10 overflow-visible"
+            >
+              {brands.map((brand, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="flex justify-center overflow-visible"
+                >
+                  <Link
+                    href={`/brands/${brand.name
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
+                    className="flex justify-center pb-5 pt-5"
+                  >
+                    <TiltedCard
+                      imageSrc={brand.image}
+                      altText={brand.name}
+                      captionText={brand.name}
+                      containerHeight="165px"
+                      containerWidth="165px"
+                      imageHeight="165px"
+                      imageWidth="165px"
+                      scaleOnHover={1.1}
+                      showTooltip={true}
+                      showMobileWarning={false}
+                      link={`/brands/${brand.name
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        </div>
+      </section>
+
+      {/* Flash Deals and Recommended for You */}
+      <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-2xl">
+        {/* Flash Deals */}
+        <div className="bg-[#A52A2A] p-4 rounded-2xl shadow-2xl">
+          <h2 className="text-3xl font-bold mb-4 text-center text-[#F0DEC9]">
+            Flash deals
+          </h2>
+
+          <Swiper
+            className=""
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+            }}
+            autoplay={{
+              delay: 3500, // time between slides in ms
+              disableOnInteraction: false, // continue autoplay after interaction
+            }}
+          >
+            {flashDeals.map((deal, index) => (
+              <SwiperSlide className="py-5 px-4" key={index}>
+                <TiltedWrapper scaleOnHover={1.1}>
+                  <HomeProductCard
+                    imageSrc={deal.image}
+                    brand={deal.brand || "Brand Name"}
+                    title={deal.name}
+                    price={deal.price}
+                    badge={deal.badge || "Best Seller"}
+                    onAddToCart={() => console.log(`Add to cart: ${deal.name}`)}
+                    onBuyNow={() => console.log(`Buy now: ${deal.name}`)}
+                  />
+                </TiltedWrapper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Recommended for You */}
+        <div className="bg-[#E9EAEB] p-4 rounded-2xl shadow">
+          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
+            Recommended for you
+          </h2>
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+            }}
+            autoplay={{
+              delay: 2000, // time between slides in ms
+              disableOnInteraction: false, // continue autoplay after interaction
+            }}
+          >
+            {recommended.map((item, index) => (
+              <SwiperSlide className="py-5 px-4" key={index}>
+                <TiltedWrapper scaleOnHover={1.05}>
+                  <HomeProductCard
+                    imageSrc={item.image}
+                    brand={item.brand || "Brand Name"} // fallback if no brand
+                    title={item.name}
+                    price={item.price}
+                    badge={item.badge || null} // optional badge
+                    onAddToCart={() => console.log(`Add to cart: ${item.name}`)}
+                    onBuyNow={() => console.log(`Buy now: ${item.name}`)}
+                    onAddToFavorites={() =>
+                      console.log(`Add to favorites: ${item.name}`)
+                    }
+                  />
+                </TiltedWrapper>
               </SwiperSlide>
             ))}
           </Swiper>
