@@ -4,6 +4,7 @@ import Filter from "./Filter";
 import Sort from "./Sort";
 import Footer from "../components/Footer";
 import Card from "../favourites/Card";
+import "./search.css";
 
 export default function Page() {
   return (

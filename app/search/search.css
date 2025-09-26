@@ -12,3 +12,15 @@
 [data-accordion="collapse"] [aria-expanded="true"] + div {
   background-color: #fff !important;
 } */
+
+/* Override Flowbite accordion button background when expanded */
+[data-accordion-target][aria-expanded="true"],
+[data-accordion-target][aria-expanded="true"]:hover {
+  background-color: #fff !important; /* or your desired color */
+}
+
+/* For dark mode */
+.dark [data-accordion-target][aria-expanded="true"],
+.dark [data-accordion-target][aria-expanded="true"]:hover {
+  background-color: #fff !important; /* or your desired dark mode color */
+}
