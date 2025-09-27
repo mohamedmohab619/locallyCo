@@ -12,7 +12,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-beige sticky top-0 z-50">
+    <nav className="bg-beige sticky top-0 z-50 shadow-2xs">
       <div className="max-w-screen-2xl flex items-center justify-between mx-auto px-6">
         {/* Left - Logo */}
         <Link href="/" className="flex items-center">
