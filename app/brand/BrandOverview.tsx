@@ -3,8 +3,8 @@ import BrandImage from "./assets/Parkville-Brand-Image.webp";
 
 export default function BrandOverview() {
   return (
-    <section className="grid grid-cols-2 gap-10 mx-20 mt-10">
-      <div className="col-span-1 rounded-2xl">
+    <section className="grid md:grid-cols-2 gap-10 mx-5 md:mx-20 mt-10">
+      <div className="col-span-1 rounded-2xl order-2 md:order-1">
         <h2 className="text-2xl mb-10">Brand Name</h2>
         <p className="text-center px-2">
           In the vibrant world of skincare and wellness, Parkville stands out as
@@ -19,7 +19,7 @@ export default function BrandOverview() {
           match for their individual needs.
         </p>
       </div>
-      <div className="col-span-1 bg-amber-200 rounded-2xl">
+      <div className="col-span-1 rounded-2xl order-1 md:order-2">
         <Image src={BrandImage} alt="brand img" className="rounded-2xl" />
       </div>
     </section>
