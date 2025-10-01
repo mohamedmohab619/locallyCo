@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const categories = [
   {
@@ -54,19 +55,45 @@ const categories = [
 export default function Categories() {
   return (
         <section className="py-12 bg-[#E9EAEB]">
-                <div className="container mx-auto">
-                    
-            <h2 className="text-4xl font-extrabold text-center mb-10 w-fit mx-auto relative">
-        Categories
-        <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-2"></span>
-        </h2>
-        
+  <div className="container mx-auto">
+    {/* Header Row */}
+    <div className="relative mb-[24px] py-3">
+                  {/* Desktop & tablet view (centered heading, floating button) */}
+                  <h2 className="hidden sm:block text-4xl font-extrabold text-center w-fit mx-auto relative text-black">
+                    Categories
+                    <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
+                  </h2>
+    
+                  <Link
+                    href="/categories"
+                    className="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 link px-4 py-2 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200"
+                  >
+                    View all
+                  </Link>
+    
+                  {/* Mobile view (left heading + button on right in flex row) */}
+                  <div className="flex items-center justify-between sm:hidden px-20">
+                    <h2 className="text-[30px] font-bold text-black">Categories
+                      <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
+                    </h2>
 
-    <div className="grid grid-cols-3 grid-rows-2 gap-6">
+                    <Link
+                      href="/categories"
+                      className="link px-3 py-1 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200 text-lg"
+                    >
+                      View all
+                    </Link>
+                  </div>
+                </div>
+
+    {/* Grid */}
+    <div className="grid grid-cols-3 grid-rows-2 gap-6 px-5">
       {categories.map((cat, i) => (
         <div
           key={i}
-          className={`relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group transition duration-500 ${cat.colSpan} ${cat.rowSpan} ${cat.height} hover:shadow-[0_0_25px_5px_rgba(105,105,105,0.6)]`}
+          className={`relative rounded-2xl overflow-hidden shadow-lg cursor-pointer group 
+          transition duration-500 ${cat.colSpan} ${cat.rowSpan} ${cat.height} 
+          hover:shadow-[0_0_25px_5px_rgba(105,105,105,0.6)]`}
         >
           {/* Image with zoom effect */}
           <Image
@@ -77,11 +104,13 @@ export default function Categories() {
           />
 
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent 
+            opacity-0 group-hover:opacity-100 transition duration-500"></div>
 
-          {/* Text with slide-up animation */}
+          {/* Text */}
           <h3
-            className={`absolute text-white text-3xl font-bold drop-shadow-lg transition-all duration-500 transform group-hover:-translate-y-2 ${cat.textPos}`}
+            className={`absolute text-white text-3xl font-bold drop-shadow-lg 
+            transition-all duration-500 transform group-hover:-translate-y-2 ${cat.textPos}`}
           >
             {cat.name}
           </h3>
@@ -90,6 +119,7 @@ export default function Categories() {
     </div>
   </div>
 </section>
+
 
 
   );
