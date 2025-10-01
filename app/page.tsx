@@ -14,11 +14,17 @@ import { HiSearch, HiShoppingCart, HiUser } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination , Autoplay  } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaTiktok } from 'react-icons/fa';
+import {
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaWhatsapp,
+  FaTiktok,
+} from "react-icons/fa";
 import { Span } from "next/dist/trace";
 import Footer from "./components/Footer.js";
 import DealsBanner from "./components/DealsBanner.js";
@@ -27,16 +33,14 @@ import RecentlyViewed from "./components/RecentlyViewed.js";
 import NavBar from "./components/NavBar.js";
 import ScrollFloat from "./components/ScrollFloat"; // make sure this is your ScrollFloat path
 import { motion } from "framer-motion";
-import RotatingText from './components/RotatingText'
-import TiltedCard from './components/TiltedCard';
-import HomeProductCard from './components/HomeProductCard';
-import TiltedWrapper from './components/TiltedWrapper.js';
+import RotatingText from "./components/RotatingText";
+import TiltedCard from "./components/TiltedCard";
 
+import HomeProductCard from "./components/HomeProductCard";
+import TiltedWrapper from "./components/TiltedWrapper.js";
 
 export default function NoonNavbar() {
-
-
-      const brands = [
+  const brands = [
     {
       name: "airjordan",
       products: 250,
@@ -68,37 +72,6 @@ export default function NoonNavbar() {
       reviews: 150,
       categories: ["Clothing", "Shoes"],
       image: "/airjordan.jpg",
-    },
-    {
-      name: "puma",
-      products: 250,
-      rating: 4.6,
-      reviews: 150,
-      categories: ["Clothing", "Shoes"],
-      image: "/pumablack.png",
-    },
-    {
-      name: "adidas",
-      products: 250,
-      rating: 4.6,
-      reviews: 150,
-      categories: ["Clothing", "Shoes"],
-      image: "/adidas3.jpg",
-    },
-    {
-      name: "airjordan",
-      products: 250,
-      rating: 4.6,
-      reviews: 150,
-      categories: ["Clothing", "Shoes"],
-      image: "/airjordan.jpg",
-    },{
-      name: "nike",
-      products: 250,
-      rating: 4.6,
-      reviews: 150,
-      categories: ["Clothing", "Shoes"],
-      image: "/nike.png",
     },
     {
       name: "puma",
@@ -155,38 +128,70 @@ export default function NoonNavbar() {
       reviews: 150,
       categories: ["Clothing", "Shoes"],
       image: "/airjordan.jpg",
-    }
+    },
+    {
+      name: "nike",
+      products: 250,
+      rating: 4.6,
+      reviews: 150,
+      categories: ["Clothing", "Shoes"],
+      image: "/nike.png",
+    },
+    {
+      name: "puma",
+      products: 250,
+      rating: 4.6,
+      reviews: 150,
+      categories: ["Clothing", "Shoes"],
+      image: "/pumablack.png",
+    },
+    {
+      name: "adidas",
+      products: 250,
+      rating: 4.6,
+      reviews: 150,
+      categories: ["Clothing", "Shoes"],
+      image: "/adidas3.jpg",
+    },
+    {
+      name: "airjordan",
+      products: 250,
+      rating: 4.6,
+      reviews: 150,
+      categories: ["Clothing", "Shoes"],
+      image: "/airjordan.jpg",
+    },
   ];
 
   const flashDeals = [
-  {
-    name: "Dior Sauvage Parfum Spray",
-    price: "500 EGP",
-    rating: 4.0,
-    reviews: 120,
-    image: "/shoes6.jpg",
-    brand: "Dior",             
-    badge: "Limited Offer",     
-  },
-  {
-    name: "Armani Code Eau de Toilette",
-    price: "750 EGP",
-    rating: 4.5,
-    reviews: 95,
-    image: "/shoes6.jpg",
-    brand: "Armani",
-    badge: "Best Seller",
-  },
-  {
-    name: "Gucci Bloom Eau de Parfum",
-    price: "900 EGP",
-    rating: 4.3,
-    reviews: 140,
-    image: "/shoes6.jpg",
-    brand: "Gucci",
-    badge: "Hot Deal",
-  },
-];
+    {
+      name: "Dior Sauvage Parfum Spray",
+      price: "500 EGP",
+      rating: 4.0,
+      reviews: 120,
+      image: "/shoes6.jpg",
+      brand: "Dior", // ✅ added
+      badge: "Limited Offer", // ✅ added
+    },
+    {
+      name: "Armani Code Eau de Toilette",
+      price: "750 EGP",
+      rating: 4.5,
+      reviews: 95,
+      image: "/shoes6.jpg",
+      brand: "Armani",
+      badge: "Best Seller",
+    },
+    {
+      name: "Gucci Bloom Eau de Parfum",
+      price: "900 EGP",
+      rating: 4.3,
+      reviews: 140,
+      image: "/shoes6.jpg",
+      brand: "Gucci",
+      badge: "Hot Deal",
+    },
+  ];
 
   const recommended = [
     {
@@ -195,7 +200,7 @@ export default function NoonNavbar() {
       rating: 4.2,
       reviews: 100,
       image: "/tshirt3.jpg",
-      brand: "Dior",             
+      brand: "Dior",
       badge: "Limited Offer",
     },
     {
@@ -204,7 +209,7 @@ export default function NoonNavbar() {
       rating: 4.8,
       reviews: 200,
       image: "/shirt.jpg",
-      brand: "Dior",              
+      brand: "Dior",
       badge: "Limited Offer",
     },
     {
@@ -213,28 +218,45 @@ export default function NoonNavbar() {
       rating: 4.6,
       reviews: 170,
       image: "/shorts.jpg",
-      brand: "Dior",              
+      brand: "Dior",
       badge: "Limited Offer",
     },
   ];
 
   return (
     <>
-
       <NavBar />
-      
 
       {/* Navigation Links below Navbar */}
       <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
         <p>Navigate to the pages through these links:</p>
-        <Link href="/product" className="link">Product</Link>
-        <Link href="/SignIn" className="link">SignIn</Link>
-        <Link href="/search" className="link">Search</Link>
-        <Link href="/SignUp" className="link">SignUp</Link>
-        <Link href="/favourites" className="link">Favourites</Link>
-        <Link href="/orders" className="link">Orders</Link>
-        <Link href="/profile" className="link">Profile</Link>
-        <Link href="/Cart" className="link">Cart</Link>
+        <Link href="/product" className="link">
+          Product
+        </Link>
+        <Link href="/SignIn" className="link">
+          SignIn
+        </Link>
+        <Link href="/search" className="link">
+          Search
+        </Link>
+        <Link href="/SignUp" className="link">
+          SignUp
+        </Link>
+        <Link href="/favourites" className="link">
+          Favourites
+        </Link>
+        <Link href="/orders" className="link">
+          Orders
+        </Link>
+        <Link href="/profile" className="link">
+          Profile
+        </Link>
+        <Link href="/Cart" className="link">
+          Cart
+        </Link>
+        <Link href="/checkout" className="link">
+          checkout
+        </Link>
       </div>
       <div className="bg-gradient-to-r from-[#40E0D0] via-[#Dcd5b9] to-[#f5f5dc] animate-gradient">
         <div className="h-full mx-auto flex justify-start">
@@ -251,7 +273,6 @@ export default function NoonNavbar() {
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-start justify-center h-full text-center text-black px-6 md:px-10">
-              
               {/* Hero headline */}
               <h1 className="flex flex-wrap justify-center items-center text-center font-extrabold mb-4 tracking-tight text-black">
                 {/* First part of the text */}
@@ -322,151 +343,300 @@ export default function NoonNavbar() {
         </div>
       </div>
 
-
-                        {/* Trending brands */}
-          <section className="bg-[#d4cda1] pb-7 ">
-            <div className="h-full flex flex-col justify-start">
-              {/* Blue section full width */}
-              <section className="w-full mt-[32px] bg-[#1b365d] px-[32px] pb-[32px] py-6">
-                <div className="flex items-center justify-between mb-[24px]">
-                  <h2 className="text-4xl font-extrabold text-center w-fit mx-auto relative text-white">
-                    Trending Brands
-                    <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
-                  </h2>
-
-                  <a
-                    href="#"
-                    className="ml-4 px-5 py-2 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200"
-                  >
-                    View all
-                  </a>
-                </div>
-
-                <Swiper
-                  modules={[Autoplay]} 
-                  slidesPerView={9}
-                  spaceBetween={1}
-                  breakpoints={{
-                    480: { slidesPerView: 2, spaceBetween: 12 },
-                    640: { slidesPerView: 3, spaceBetween: 16 },
-                    768: { slidesPerView: 4, spaceBetween: 20 },
-                    1024: { slidesPerView: 6, spaceBetween: 24 },
-                    1280: { slidesPerView: 8, spaceBetween: 28 },
-                  }}
-                  autoplay={{
-                    delay: 1500, // time between slides in ms
-                    disableOnInteraction: false, // continue autoplay after interaction
-                  }}
-                  loop={true} // makes the slider loop infinitely
-                  pagination={{ clickable: true }}
-                  className="pb-10 overflow-visible"
-                >
-                  {brands.map((brand, index) => (
-                    <SwiperSlide key={index} className="flex justify-center overflow-visible">
-                      <Link
-                        href={`/brands/${brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        className="flex justify-center pb-5 pt-5"
-                      >
-                        <TiltedCard
-                          imageSrc={brand.image}
-                          altText={brand.name}
-                          captionText={brand.name}
-                          containerHeight="165px"
-                          containerWidth="165px"
-                          imageHeight="165px"
-                          imageWidth="165px"
-                          scaleOnHover={1.1}
-                          showTooltip={true}
-                          showMobileWarning={false}
-                          link={`/brands/${brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        />
-                      </Link>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </section>
+      {/* Trending brands */}
+      <section className="bg-[#d4cda1] pb-7">
+        <div className="h-full container mx-auto flex flex-col justify-start">
+          <section className="container mx-auto mt-[32px] bg-[#1b365d] px-[56px] pb-[24px] rounded-4xl py-3">
+            <div className="flex items-center justify-between mb-[16px]">
+              <h2 className="text-3xl font-bold mx-auto text-white">
+                Trending brands
+              </h2>
+              <a href="#" className="text-black hover:underline">
+                View all
+              </a>
             </div>
+
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={20}
+              slidesPerView={1} // default for very small screens
+              breakpoints={{
+                480: { slidesPerView: 2, spaceBetween: 12 }, // small phones
+                640: { slidesPerView: 3, spaceBetween: 16 }, // tablets
+                768: { slidesPerView: 4, spaceBetween: 16 }, // small laptops
+                1024: { slidesPerView: 6, spaceBetween: 20 }, // large laptops
+                1280: { slidesPerView: 8, spaceBetween: 24 }, // extra large screens
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              className="pb-10 overflow-visible"
+            >
+              {brands.map((brand, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="flex justify-center overflow-visible"
+                >
+                  <Link
+                    href={`/brands/${brand.name
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
+                    className="flex justify-center pb-5 pt-5"
+                  >
+                    <TiltedCard
+                      imageSrc={brand.image}
+                      altText={brand.name}
+                      captionText={brand.name}
+                      containerHeight="220px"
+                      containerWidth="220px"
+                      imageHeight="220px"
+                      imageWidth="220px"
+                      scaleOnHover={1.1}
+                      showTooltip={true}
+                      showMobileWarning={false}
+                      link={`/brands/${brand.name
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </section>
+        </div>
+      </section>
 
+      {/* flash deals and reccomended for you*/}
+      <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Flash Deals */}
+        <div className="bg-[#F0DEC9] p-4 rounded-2xl shadow">
+          <h2 className="text-3xl font-bold mb-4 text-center text-[#5B3C19]">
+            Flash deals
+          </h2>
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+            }}
+            navigation
+          >
+            {flashDeals.map((deal, index) => (
+              <SwiperSlide key={index}>
+                <div className="bg-gray-100 rounded-2xl p-3 shadow hover:shadow-lg transition cursor-pointer">
+                  <Image
+                    src={deal.image}
+                    alt={deal.name}
+                    width={343}
+                    height={260}
+                    className="rounded-lg object-cover w-full h-[200px]"
+                  />
+                  <h3 className="mt-3 font-medium text-gray-800">
+                    {deal.name}
+                  </h3>
+                  <p className="text-gray-700 font-bold">{deal.price}</p>
+                  <div className="flex items-center text-sm mt-1">
+                    <span className="text-green-600 font-medium mr-1">
+                      {deal.rating} ★
+                    </span>
+                    <span className="text-gray-500">({deal.reviews})</span>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
 
- 
-                    {/* Flash Deals and Recommended for You */}  
-          <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-2xl">
-            {/* Flash Deals */}
-            <div className="bg-[#A52A2A] p-4 rounded-2xl shadow-2xl">
-              <h2 className="text-3xl font-bold mb-4 text-center text-[#F0DEC9]">
-                Flash deals
+        {/* Recommended for You */}
+        <div className="bg-[#E9EAEB] p-4 rounded-2xl shadow">
+          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
+            Recommended for you
+          </h2>
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+            }}
+            navigation
+          >
+            {recommended.map((item, index) => (
+              <SwiperSlide key={index}>
+                <div className="bg-gray-100 rounded-2xl p-3 shadow hover:shadow-lg transition cursor-pointer">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={343}
+                    height={260}
+                    className="rounded-lg object-cover w-full h-[200px]"
+                  />
+                  <h3 className="mt-3 font-medium text-gray-800">
+                    {item.name}
+                  </h3>
+                  <p className="text-gray-700 font-bold">{item.price}</p>
+                  <div className="flex items-center text-sm mt-1">
+                    <span className="text-green-600 font-medium mr-1">
+                      {item.rating} ★
+                    </span>
+                    <span className="text-gray-500">({item.reviews})</span>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
+
+      {/* Trending brands */}
+      <section className="bg-[#d4cda1] pb-7 ">
+        <div className="h-full flex flex-col justify-start">
+          {/* Blue section full width */}
+          <section className="w-full mt-[32px] bg-[#1b365d] px-[32px] pb-[32px] py-6">
+            <div className="flex items-center justify-between mb-[24px]">
+              <h2 className="text-4xl font-extrabold text-center w-fit mx-auto relative text-white">
+                Trending Brands
+                <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
               </h2>
 
-              <Swiper className=""
-                modules={[Autoplay]}
-                spaceBetween={20}
-                slidesPerView={2}
-                breakpoints={{
-                  640: { slidesPerView: 2 },
-                }}
-                autoplay={{
-                    delay: 3500, // time between slides in ms
-                    disableOnInteraction: false, // continue autoplay after interaction
-                  }}
+              <a
+                href="#"
+                className="ml-4 px-5 py-2 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200"
               >
-                {flashDeals.map((deal, index) => (
-                  <SwiperSlide className="py-5 px-4" key={index}>
-
-                  <TiltedWrapper scaleOnHover={1.10}>
-                    <HomeProductCard
-                      imageSrc={deal.image}
-                      brand={deal.brand || "Brand Name"}
-                      title={deal.name}
-                      price={deal.price}
-                      badge={deal.badge || "Best Seller"}
-                      onAddToCart={() => console.log(`Add to cart: ${deal.name}`)}
-                      onBuyNow={() => console.log(`Buy now: ${deal.name}`)}
-                    />
-                </TiltedWrapper>
-
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+                View all
+              </a>
             </div>
 
-            {/* Recommended for You */}
-                <div className="bg-[#E9EAEB] p-4 rounded-2xl shadow">
-                  <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
-                    Recommended for you
-                  </h2>
-                  <Swiper
-                    modules={[Autoplay]}
-                    spaceBetween={20}
-                    slidesPerView={2}
-                    breakpoints={{
-                      640: { slidesPerView: 2 },
-                    }}
-                    autoplay={{
-                    delay: 2000, // time between slides in ms
-                    disableOnInteraction: false, // continue autoplay after interaction
-                  }}
-                    
+            <Swiper
+              modules={[Autoplay]}
+              slidesPerView={9}
+              spaceBetween={1}
+              breakpoints={{
+                480: { slidesPerView: 2, spaceBetween: 12 },
+                640: { slidesPerView: 3, spaceBetween: 16 },
+                768: { slidesPerView: 4, spaceBetween: 20 },
+                1024: { slidesPerView: 6, spaceBetween: 24 },
+                1280: { slidesPerView: 8, spaceBetween: 28 },
+              }}
+              autoplay={{
+                delay: 1500, // time between slides in ms
+                disableOnInteraction: false, // continue autoplay after interaction
+              }}
+              loop={true} // makes the slider loop infinitely
+              pagination={{ clickable: true }}
+              className="pb-10 overflow-visible"
+            >
+              {brands.map((brand, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="flex justify-center overflow-visible"
+                >
+                  <Link
+                    href={`/brands/${brand.name
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
+                    className="flex justify-center pb-5 pt-5"
                   >
-                    {recommended.map((item, index) => (
-                      <SwiperSlide className="py-5 px-4" key={index}>
-                        <TiltedWrapper scaleOnHover={1.05}>
-                          <HomeProductCard
-                            imageSrc={item.image}
-                            brand={item.brand || "Brand Name"} // fallback if no brand
-                            title={item.name}
-                            price={item.price}
-                            badge={item.badge || null} // optional badge
-                            onAddToCart={() => console.log(`Add to cart: ${item.name}`)}
-                            onBuyNow={() => console.log(`Buy now: ${item.name}`)}
-                            onAddToFavorites={() => console.log(`Add to favorites: ${item.name}`)}
-                          />
-                        </TiltedWrapper>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
+                    <TiltedCard
+                      imageSrc={brand.image}
+                      altText={brand.name}
+                      captionText={brand.name}
+                      containerHeight="165px"
+                      containerWidth="165px"
+                      imageHeight="165px"
+                      imageWidth="165px"
+                      scaleOnHover={1.1}
+                      showTooltip={true}
+                      showMobileWarning={false}
+                      link={`/brands/${brand.name
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </section>
+        </div>
+      </section>
+
+      {/* Flash Deals and Recommended for You */}
+      <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-2xl">
+        {/* Flash Deals */}
+        <div className="bg-[#A52A2A] p-4 rounded-2xl shadow-2xl">
+          <h2 className="text-3xl font-bold mb-4 text-center text-[#F0DEC9]">
+            Flash deals
+          </h2>
+
+          <Swiper
+            className=""
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+            }}
+            autoplay={{
+              delay: 3500, // time between slides in ms
+              disableOnInteraction: false, // continue autoplay after interaction
+            }}
+          >
+            {flashDeals.map((deal, index) => (
+              <SwiperSlide className="py-5 px-4" key={index}>
+                <TiltedWrapper scaleOnHover={1.1}>
+                  <HomeProductCard
+                    imageSrc={deal.image}
+                    brand={deal.brand || "Brand Name"}
+                    title={deal.name}
+                    price={deal.price}
+                    badge={deal.badge || "Best Seller"}
+                    onAddToCart={() => console.log(`Add to cart: ${deal.name}`)}
+                    onBuyNow={() => console.log(`Buy now: ${deal.name}`)}
+                  />
+                </TiltedWrapper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Recommended for You */}
+        <div className="bg-[#E9EAEB] p-4 rounded-2xl shadow">
+          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
+            Recommended for you
+          </h2>
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+            }}
+            autoplay={{
+              delay: 2000, // time between slides in ms
+              disableOnInteraction: false, // continue autoplay after interaction
+            }}
+          >
+            {recommended.map((item, index) => (
+              <SwiperSlide className="py-5 px-4" key={index}>
+                <TiltedWrapper scaleOnHover={1.05}>
+                  <HomeProductCard
+                    imageSrc={item.image}
+                    brand={item.brand || "Brand Name"} // fallback if no brand
+                    title={item.name}
+                    price={item.price}
+                    badge={item.badge || null} // optional badge
+                    onAddToCart={() => console.log(`Add to cart: ${item.name}`)}
+                    onBuyNow={() => console.log(`Buy now: ${item.name}`)}
+                    onAddToFavorites={() =>
+                      console.log(`Add to favorites: ${item.name}`)
+                    }
+                  />
+                </TiltedWrapper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
 
       {/* categories */}
 
@@ -481,10 +651,8 @@ export default function NoonNavbar() {
       <RecentlyViewed />
 
       {/* footer */}
-      
-      <Footer />
-      
 
+      <Footer />
     </>
   );
 }
@@ -497,8 +665,6 @@ export default function NoonNavbar() {
 // Ancient Red #A52A2A
 // Obsidian black #0B0B0B
 // Papyrus white #f5f5dc
-
-
 
 // bg-gradient-to-r from-[#3b7a57] via-[#d4af37] to-[#40E0D0]
 

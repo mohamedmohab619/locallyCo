@@ -1,7 +1,7 @@
-"use client";  // ⬅️ now this page can use state & event handlers
+"use client"; // ⬅️ now this page can use state & event handlers
 
 import { useState } from "react";
-import Header from "./Header";
+import Navbar from "../components/NavBar";
 import Card from "./Card";
 import Button from "./Button";
 
@@ -14,9 +14,9 @@ export default function Home() {
 
   return (
     <main>
-      <Header />
+      <Navbar />
       <Button onAddCard={addCard} />
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-3 gap-2 w-full bg-gray-50">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-3 gap-2 w-full bg-gray-50">
         {cards.map((id) => (
           <Card key={id} />
         ))}
