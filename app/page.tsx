@@ -165,8 +165,8 @@ export default function NoonNavbar() {
     rating: 4.0,
     reviews: 120,
     image: "/shoes6.jpg",
-    brand: "Dior",              // ✅ added
-    badge: "Limited Offer",     // ✅ added
+    brand: "Dior",             
+    badge: "Limited Offer",     
   },
   {
     name: "Armani Code Eau de Toilette",
