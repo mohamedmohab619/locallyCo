@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Layout from "../orders/Layout";
+import Navbar from "../components/NavBar";
+import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 const containerStyle = {
@@ -31,17 +33,17 @@ const AddressesPage = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentId, setCurrentId] = useState(null);
+  const [currentId, setCurrentId] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: "", details: "", phone: "" });
-  const [marker, setMarker] = useState(null);
+  const [marker, setMarker] = useState<any>(null);
 
   // Load Google Maps API once
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
   });
 
   // Handle form inputs
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -55,12 +57,12 @@ const AddressesPage = () => {
   };
 
   // Open Edit modal
-  const openEditModal = (addr) => {
+  const openEditModal = (addr: any) => {
     setFormData(addr);
     setCurrentId(addr.id);
 
-    if (addr.details.includes(",")) {
-      const [lat, lng] = addr.details.split(",").map((n) => parseFloat(n));
+    if (addr.details && addr.details.includes(",")) {
+      const [lat, lng] = addr.details.split(",").map((n: string) => parseFloat(n));
       setMarker({ lat, lng });
     }
 
@@ -99,149 +101,168 @@ const AddressesPage = () => {
   };
 
   // Delete address
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     if (confirm("Are you sure you want to delete this address?")) {
       setAddresses((prev) => prev.filter((addr) => addr.id !== id));
     }
   };
 
   return (
-    <Layout>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Your Addresses</h1>
-        <button
-          onClick={openAddModal}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
-        >
-          + Add New Address
-        </button>
-      </div>
+    // Column layout: Navbar top, middle row for Sidebar+Content, Footer bottom
+    <div className="flex flex-col min-h-screen bg-gray-100 ">
+      {/* Navbar at top */}
+      <Navbar />
 
-      {addresses.length === 0 ? (
-        <p className="text-gray-500">You have no saved addresses.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {addresses.map((addr) => (
-            <div
-              key={addr.id}
-              className="p-6 bg-white border border-gray-200 rounded-2xl shadow hover:shadow-md transition"
+      {/* Middle area: sidebar + content */}
+      <div className="flex flex-1">
+        {/* Sidebar (left) */}
+        <div className="shrink-0">
+          <Sidebar />
+        </div>
+
+        {/* Main content (right) */}
+        <main className="flex-1 p-6 overflow-y-auto">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold">Your Addresses</h1>
+            <button
+              onClick={openAddModal}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
             >
-              <h3 className="text-lg font-semibold text-gray-900">{addr.name}</h3>
-              {addr.details.includes(",") ? (
-                <p
-                  onClick={() =>
-                    window.open(
-                      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                        addr.details
-                      )}`
-                    )
-                  }
-                  className="mt-2 text-blue-600 underline cursor-pointer"
+              + Add New Address
+            </button>
+          </div>
+
+          {addresses.length === 0 ? (
+            <p className="text-gray-500">You have no saved addresses.</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {addresses.map((addr) => (
+                <div
+                  key={addr.id}
+                  className="p-6 bg-white border border-gray-200 rounded-2xl shadow hover:shadow-md transition"
                 >
-                  View on Map
-                </p>
-              ) : (
-                <p className="mt-2 text-gray-600">{addr.details}</p>
-              )}
-              <p className="text-gray-600">{addr.phone}</p>
-              <div className="flex gap-4 mt-4">
-                <button
-                  onClick={() => openEditModal(addr)}
-                  className="text-blue-600 hover:underline"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(addr.id)}
-                  className="text-red-600 hover:underline"
-                >
-                  Delete
-                </button>
+                  <h3 className="text-lg font-semibold text-gray-900">{addr.name}</h3>
+                  {addr.details && addr.details.includes(",") ? (
+                    <p
+                      onClick={() =>
+                        window.open(
+                          `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                            addr.details
+                          )}`
+                        )
+                      }
+                      className="mt-2 text-blue-600 underline cursor-pointer"
+                    >
+                      View on Map
+                    </p>
+                  ) : (
+                    <p className="mt-2 text-gray-600">{addr.details}</p>
+                  )}
+                  <p className="text-gray-600">{addr.phone}</p>
+                  <div className="flex gap-4 mt-4">
+                    <button
+                      onClick={() => openEditModal(addr)}
+                      className="text-blue-600 hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(addr.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Add/Edit Modal */}
+          {showModal && (
+            <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-white/30 z-50">
+              <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 overflow-y-auto max-h-screen">
+                <h2 className="text-xl font-semibold mb-4">
+                  {isEditing ? "Edit Address" : "Add New Address"}
+                </h2>
+
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Address Name (e.g., Home, Office)"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+
+                  {/* Map */}
+                  {isLoaded ? (
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={marker || defaultCenter}
+                      zoom={12}
+                      onClick={(e) => {
+                        const coords = {
+                          lat: e.latLng?.lat() ?? 0,
+                          lng: e.latLng?.lng() ?? 0,
+                        };
+                        setMarker(coords);
+                        setFormData({
+                          ...formData,
+                          details: `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`,
+                        });
+                      }}
+                    >
+                      {marker && <Marker position={marker} />}
+                    </GoogleMap>
+                  ) : (
+                    <p className="text-gray-500 text-center mt-2">Loading map...</p>
+                  )}
+
+                  <input
+                    type="text"
+                    name="details"
+                    placeholder="Coordinates (click map to select)"
+                    value={formData.details}
+                    readOnly
+                    className="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-600"
+                  />
+                </div>
+
+                <div className="flex justify-end gap-3 mt-6">
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+                  >
+                    {isEditing ? "Update" : "Save"}
+                  </button>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          )}
+        </main>
+      </div>
 
-      {/* Add/Edit Modal */}
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-white/30 z-50">
-          <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 overflow-y-auto max-h-screen">
-            <h2 className="text-xl font-semibold mb-4">
-              {isEditing ? "Edit Address" : "Add New Address"}
-            </h2>
-
-            <div className="space-y-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Address Name (e.g., Home, Office)"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="text"
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-
-              {/* Map */}
-              {isLoaded ? (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={marker || defaultCenter}
-                  zoom={12}
-                  onClick={(e) => {
-                    const coords = {
-                      lat: e.latLng.lat(),
-                      lng: e.latLng.lng(),
-                    };
-                    setMarker(coords);
-                    setFormData({
-                      ...formData,
-                      details: `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`,
-                    });
-                  }}
-                >
-                  {marker && <Marker position={marker} />}
-                </GoogleMap>
-              ) : (
-                <p className="text-gray-500 text-center mt-2">Loading map...</p>
-              )}
-
-              <input
-                type="text"
-                name="details"
-                placeholder="Coordinates (click map to select)"
-                value={formData.details}
-                readOnly
-                className="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-600"
-              />
-            </div>
-
-            <div className="flex justify-end gap-3 mt-6">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSave}
-                className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
-              >
-                {isEditing ? "Update" : "Save"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </Layout>
+      {/* Footer at bottom */}
+      <Footer />
+    </div>
   );
 };
 
 export default AddressesPage;
+

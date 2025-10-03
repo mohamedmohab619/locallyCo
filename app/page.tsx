@@ -342,169 +342,39 @@ export default function NoonNavbar() {
           </div>
         </div>
       </div>
-
-      {/* Trending brands */}
-      <section className="bg-[#d4cda1] pb-7">
-        <div className="h-full container mx-auto flex flex-col justify-start">
-          <section className="container mx-auto mt-[32px] bg-[#1b365d] px-[56px] pb-[24px] rounded-4xl py-3">
-            <div className="flex items-center justify-between mb-[16px]">
-              <h2 className="text-3xl font-bold mx-auto text-white">
-                Trending brands
-              </h2>
-              <a href="#" className="text-black hover:underline">
-                View all
-              </a>
-            </div>
-
-            <Swiper
-              modules={[Navigation]}
-              spaceBetween={20}
-              slidesPerView={1} // default for very small screens
-              breakpoints={{
-                480: { slidesPerView: 2, spaceBetween: 12 }, // small phones
-                640: { slidesPerView: 3, spaceBetween: 16 }, // tablets
-                768: { slidesPerView: 4, spaceBetween: 16 }, // small laptops
-                1024: { slidesPerView: 6, spaceBetween: 20 }, // large laptops
-                1280: { slidesPerView: 8, spaceBetween: 24 }, // extra large screens
-              }}
-              navigation
-              pagination={{ clickable: true }}
-              className="pb-10 overflow-visible"
-            >
-              {brands.map((brand, index) => (
-                <SwiperSlide
-                  key={index}
-                  className="flex justify-center overflow-visible"
-                >
-                  <Link
-                    href={`/brands/${brand.name
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}`}
-                    className="flex justify-center pb-5 pt-5"
-                  >
-                    <TiltedCard
-                      imageSrc={brand.image}
-                      altText={brand.name}
-                      captionText={brand.name}
-                      containerHeight="220px"
-                      containerWidth="220px"
-                      imageHeight="220px"
-                      imageWidth="220px"
-                      scaleOnHover={1.1}
-                      showTooltip={true}
-                      showMobileWarning={false}
-                      link={`/brands/${brand.name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
-                    />
-                  </Link>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </section>
-        </div>
-      </section>
-
-      {/* flash deals and reccomended for you*/}
-      <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Flash Deals */}
-        <div className="bg-[#F0DEC9] p-4 rounded-2xl shadow">
-          <h2 className="text-3xl font-bold mb-4 text-center text-[#5B3C19]">
-            Flash deals
-          </h2>
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-            }}
-            navigation
-          >
-            {flashDeals.map((deal, index) => (
-              <SwiperSlide key={index}>
-                <div className="bg-gray-100 rounded-2xl p-3 shadow hover:shadow-lg transition cursor-pointer">
-                  <Image
-                    src={deal.image}
-                    alt={deal.name}
-                    width={343}
-                    height={260}
-                    className="rounded-lg object-cover w-full h-[200px]"
-                  />
-                  <h3 className="mt-3 font-medium text-gray-800">
-                    {deal.name}
-                  </h3>
-                  <p className="text-gray-700 font-bold">{deal.price}</p>
-                  <div className="flex items-center text-sm mt-1">
-                    <span className="text-green-600 font-medium mr-1">
-                      {deal.rating} ★
-                    </span>
-                    <span className="text-gray-500">({deal.reviews})</span>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-
-        {/* Recommended for You */}
-        <div className="bg-[#E9EAEB] p-4 rounded-2xl shadow">
-          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
-            Recommended for you
-          </h2>
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-            }}
-            navigation
-          >
-            {recommended.map((item, index) => (
-              <SwiperSlide key={index}>
-                <div className="bg-gray-100 rounded-2xl p-3 shadow hover:shadow-lg transition cursor-pointer">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={343}
-                    height={260}
-                    className="rounded-lg object-cover w-full h-[200px]"
-                  />
-                  <h3 className="mt-3 font-medium text-gray-800">
-                    {item.name}
-                  </h3>
-                  <p className="text-gray-700 font-bold">{item.price}</p>
-                  <div className="flex items-center text-sm mt-1">
-                    <span className="text-green-600 font-medium mr-1">
-                      {item.rating} ★
-                    </span>
-                    <span className="text-gray-500">({item.reviews})</span>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
-
+      
       {/* Trending brands */}
       <section className="bg-[#d4cda1] pb-7 ">
         <div className="h-full flex flex-col justify-start">
           {/* Blue section full width */}
           <section className="w-full mt-[32px] bg-[#1b365d] px-[32px] pb-[32px] py-6">
-            <div className="flex items-center justify-between mb-[24px]">
-              <h2 className="text-4xl font-extrabold text-center w-fit mx-auto relative text-white">
+            <div className="relative mb-[24px]  py-3">
+              {/* Desktop & tablet view (centered heading, floating button) */}
+              <h2 className="hidden sm:block text-4xl font-extrabold text-center w-fit mx-auto relative text-white ">
                 Trending Brands
                 <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
               </h2>
 
-              <a
-                href="#"
-                className="ml-4 px-5 py-2 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200"
+              <Link
+                href="/checkout"
+                className="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 link px-4 py-2 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200"
               >
                 View all
-              </a>
+              </Link>
+
+              {/* Mobile view (left heading + button on right in flex row) */}
+              <div className="flex items-center justify-between sm:hidden px-5">
+                <h2 className="text-[30px] font-bold text-white">Trending Brands
+                  <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
+                </h2>
+                
+                <Link
+                  href="/checkout"
+                  className="link px-3 py-1 rounded-full bg-white text-[#1b365d] font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 hover:bg-gray-200 text-lg"
+                >
+                  View all
+                </Link>
+              </div>
             </div>
 
             <Swiper

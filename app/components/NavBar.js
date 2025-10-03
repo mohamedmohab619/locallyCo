@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaMapMarkerAlt, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import { MdOutlineFavorite } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
@@ -13,27 +13,27 @@ export default function Navbar() {
 
   return (
     <nav className="bg-beige sticky top-0 z-50 shadow-2xs">
-      <div className="max-w-screen-2xl flex items-center justify-between mx-auto px-6">
+      <div className="max-w-screen-2xl flex items-center justify-between mx-auto px-6 ">
         {/* Left - Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center ">
           <Image src={"/logo2.png"} alt={"logo"} width={120} height={120} className="w-30 h-20 object-cover"  />
         </Link>
 
-        <div className="flex">
+        <div className="flex  gap-3">
           {/* Deliver to location */}
-          <div className="flex items-center gap-1 ml-6 text-sm text-dark-brown cursor-pointer">
+          <div className="flex items-center gap-1 ml-6 text-sm text-dark-brown cursor-pointer ">
             <FaLocationDot />
             <span className="text-xs">Deliver text-sto Cairo, Egypt</span>
           </div>
 
           {/* Search Bar */}
-          <div className="mx-6 max-w-5xl">
+          <div className="mx-6">
             <div className="relative">
               <input
                 type="search"
                 placeholder="Search products..."
-                className="w-80 pl-10 pr-4 py-2 rounded-full outline-0 
-               focus:border-brown focus:border-1 text-sm bg-white transition duration-300"
+                className="w-220 pl-10 pr-4 py-2 rounded-full outline-0 
+               focus:border-brown focus:border-1 text-sm bg-white transition duration-300 shadow-md"
               />
               <svg
                 className="absolute left-3 top-2.5 w-4 h-4 text-gray-500"
@@ -49,7 +49,7 @@ export default function Navbar() {
         </div>
 
         {/* Right side icons */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-6 ">
           {/* Favorites */}
           <Link
             href="/favourites"
