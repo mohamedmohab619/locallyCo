@@ -64,7 +64,7 @@ export default function Navbar() {
 
           {/* Cart */}
           <Link
-            href="/cart"
+            href="/Cart"
             className={`text-xl transition-transform duration-200 hover:scale-110 ${
               pathname === "/cart"
                 ? "text-brown"

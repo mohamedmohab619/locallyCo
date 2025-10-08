@@ -191,6 +191,24 @@ export default function NoonNavbar() {
       brand: "Gucci",
       badge: "Hot Deal",
     },
+    {
+      name: "Gucci Bloom Eau de Parfum",
+      price: "900 EGP",
+      rating: 4.3,
+      reviews: 140,
+      image: "/shoes6.jpg",
+      brand: "Gucci",
+      badge: "Hot Deal",
+    },
+    {
+      name: "Gucci Bloom Eau de Parfum",
+      price: "900 EGP",
+      rating: 4.3,
+      reviews: 140,
+      image: "/shoes6.jpg",
+      brand: "Gucci",
+      badge: "Hot Deal",
+    },
   ];
 
   const recommended = [
@@ -221,6 +239,33 @@ export default function NoonNavbar() {
       brand: "Dior",
       badge: "Limited Offer",
     },
+    {
+      name: "YSL La Nuit de L’Homme",
+      price: "850 EGP",
+      rating: 4.6,
+      reviews: 170,
+      image: "/shorts.jpg",
+      brand: "Dior",
+      badge: "Limited Offer",
+    },
+    {
+      name: "YSL La Nuit de L’Homme",
+      price: "850 EGP",
+      rating: 4.6,
+      reviews: 170,
+      image: "/shorts.jpg",
+      brand: "Dior",
+      badge: "Limited Offer",
+    },
+    {
+      name: "YSL La Nuit de L’Homme",
+      price: "850 EGP",
+      rating: 4.6,
+      reviews: 170,
+      image: "/shorts.jpg",
+      brand: "Dior",
+      badge: "Limited Offer",
+    },
   ];
 
   return (
@@ -228,7 +273,7 @@ export default function NoonNavbar() {
       <NavBar />
 
       {/* Navigation Links below Navbar */}
-      <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
+      {/* <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
         <p>Navigate to the pages through these links:</p>
         <Link href="/product" className="link">
           Product
@@ -257,7 +302,7 @@ export default function NoonNavbar() {
         <Link href="/checkout" className="link">
           checkout
         </Link>
-      </div>
+      </div> */}
       <div className="bg-gradient-to-r from-[#40E0D0] via-[#Dcd5b9] to-[#f5f5dc] animate-gradient">
         <div className="h-full mx-auto flex justify-start">
           {/* Hero wrapper */}
@@ -291,7 +336,7 @@ export default function NoonNavbar() {
                 <span>
                   <RotatingText
                     texts={["Outfit", "Collection", "Style"]}
-                    mainClassName="text-[clamp(2rem,5vw,6rem)] font-extrabold text-black py-1 rounded-lg bg-blue-900 inline-block"
+                    mainClassName="text-[clamp(2rem,5vw,6rem)] font-extrabold text-black py-1 rounded-lg inline-block"
                     staggerFrom="last"
                     initial={{ y: "100%", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -350,7 +395,7 @@ export default function NoonNavbar() {
           <section className="w-full mt-[32px] bg-[#1b365d] px-[32px] pb-[32px] py-6">
             <div className="relative mb-[24px]  py-3">
               {/* Desktop & tablet view (centered heading, floating button) */}
-              <h2 className="hidden sm:block text-4xl font-extrabold text-center w-fit mx-auto relative text-white ">
+              <h2 className="hidden sm:block text-4xl font-extrabold text-center w-fit mx-auto relative text-white">
                 Trending Brands
                 <span className="block w-16 h-1 bg-gradient-to-r from-amber-400 to-pink-500 rounded-full mx-auto mt-4"></span>
               </h2>
@@ -431,7 +476,7 @@ export default function NoonNavbar() {
       </section>
 
       {/* Flash Deals and Recommended for You */}
-      <section className="container mx-auto my-[32px] grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-2xl">
+      <section className="container mx-auto my-[32px] gap-8 rounded-2xl">
         {/* Flash Deals */}
         <div className="bg-[#A52A2A] p-4 rounded-2xl shadow-2xl">
           <h2 className="text-3xl font-bold mb-4 text-center text-[#F0DEC9]">
@@ -445,6 +490,8 @@ export default function NoonNavbar() {
             slidesPerView={2}
             breakpoints={{
               640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
             }}
             autoplay={{
               delay: 3500, // time between slides in ms
@@ -454,7 +501,8 @@ export default function NoonNavbar() {
             {flashDeals.map((deal, index) => (
               <SwiperSlide className="py-5 px-4" key={index}>
                 <TiltedWrapper scaleOnHover={1.1}>
-                  <HomeProductCard
+                  <Link href="/product" className="link">
+                    <HomeProductCard
                     imageSrc={deal.image}
                     brand={deal.brand || "Brand Name"}
                     title={deal.name}
@@ -463,6 +511,7 @@ export default function NoonNavbar() {
                     onAddToCart={() => console.log(`Add to cart: ${deal.name}`)}
                     onBuyNow={() => console.log(`Buy now: ${deal.name}`)}
                   />
+                </Link>
                 </TiltedWrapper>
               </SwiperSlide>
             ))}
@@ -470,8 +519,8 @@ export default function NoonNavbar() {
         </div>
 
         {/* Recommended for You */}
-        <div className="bg-[#E9EAEB] p-4 rounded-2xl shadow">
-          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
+        <div className="bg-dark-brown p-4 rounded-2xl shadow mt-20">
+          <h2 className="text-3xl font-bold mb-4 text-center text-[#E9EAEB]">
             Recommended for you
           </h2>
           <Swiper
@@ -480,6 +529,8 @@ export default function NoonNavbar() {
             slidesPerView={2}
             breakpoints={{
               640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
             }}
             autoplay={{
               delay: 2000, // time between slides in ms
@@ -489,18 +540,21 @@ export default function NoonNavbar() {
             {recommended.map((item, index) => (
               <SwiperSlide className="py-5 px-4" key={index}>
                 <TiltedWrapper scaleOnHover={1.05}>
+                  <Link href="/product" className="link">
                   <HomeProductCard
-                    imageSrc={item.image}
-                    brand={item.brand || "Brand Name"} // fallback if no brand
-                    title={item.name}
-                    price={item.price}
-                    badge={item.badge || null} // optional badge
-                    onAddToCart={() => console.log(`Add to cart: ${item.name}`)}
-                    onBuyNow={() => console.log(`Buy now: ${item.name}`)}
-                    onAddToFavorites={() =>
-                      console.log(`Add to favorites: ${item.name}`)
-                    }
-                  />
+                  imageSrc={item.image}
+                  brand={item.brand || "Brand Name"} // fallback if no brand
+                  title={item.name}
+                  price={item.price}
+                  badge={item.badge || null} // optional badge
+                  onAddToCart={() => console.log(`Add to cart: ${item.name}`)}
+                  onBuyNow={() => console.log(`Buy now: ${item.name}`)}
+                  onAddToFavorites={() =>
+                    console.log(`Add to favorites: ${item.name}`)
+                  }
+                />
+                </Link>
+                  
                 </TiltedWrapper>
               </SwiperSlide>
             ))}
@@ -512,9 +566,13 @@ export default function NoonNavbar() {
 
       <Categories />
 
+      <RecentlyViewed />
+
       {/* DealsBanner */}
 
       <DealsBanner />
+
+      <RecentlyViewed />
 
       {/* Recently viewed */}
 

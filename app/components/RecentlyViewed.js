@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import {  Autoplay } from "swiper/modules";
 import TiltedWrapper from "./TiltedWrapper";
 import HomeProductCard from "./HomeProductCard";
+import Link from "next/link";
 
 const products = [
   { id: 1, image: "/shirt.jpg", title: "Clothify Max Trun", brand: "Clothify", price: "$24.57", badge: "Best Seller" },
@@ -37,7 +38,8 @@ export default function RecentlyViewed() {
           {products.map((product) => (
             <SwiperSlide className="py-5 px-4" key={product.id}>
               <TiltedWrapper scaleOnHover={1.05}>
-                <HomeProductCard
+                <Link href="/product" className="link">
+                  <HomeProductCard
                   imageSrc={product.image}
                   brand={product.brand || "Brand Name"}
                   title={product.title}
@@ -47,6 +49,8 @@ export default function RecentlyViewed() {
                   onBuyNow={() => console.log(`Buy now: ${product.title}`)}
                   onAddToFavorites={() => console.log(`Add to favorites: ${product.title}`)}
                 />
+                </Link>
+                
               </TiltedWrapper>
             </SwiperSlide>
           ))}

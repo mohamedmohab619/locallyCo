@@ -1,4 +1,5 @@
 import "./Payments.css";
+import Link from "next/link";
 import { IoReceiptSharp } from "react-icons/io5";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 export default function Payments() {
@@ -63,9 +64,12 @@ export default function Payments() {
         </div>
 
         {/* Checkout Button */}
-        <button className="w-full py-3 bg-brown text-white font-semibold rounded duration-300 hover:bg-dark-brown cursor-pointer  ">
+        <Link href="/checkout" className="link">
+          <button className="w-full py-3 bg-brown text-white font-semibold rounded duration-300 hover:bg-dark-brown cursor-pointer  ">
           CHECKOUT
         </button>
+        </Link>
+        
       </div>
     </div>
   );
