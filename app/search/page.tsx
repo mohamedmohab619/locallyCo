@@ -29,10 +29,10 @@ export default function Page() {
             </div>
          </div> */}
       <div className="grid grid-cols-5">
-        <div className="md:col-span-1 bg-amber-100">
+        <div className="md:col-span-1 md:flex hidden">
           <Filter />
         </div>
-        <div className="md:col-span-4 col-span-5 bg-green-100">
+        <div className="md:col-span-4 col-span-5">
           <div className="text-right">
             <Sort />
           </div>

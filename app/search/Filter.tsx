@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { initFlowbite } from "flowbite";
+// import { initFlowbite } from "flowbite";
 import { Button } from "flowbite-react";
 
 type CheckboxOption = {
@@ -95,12 +95,12 @@ export default function Filter() {
       </Button>
 
       <aside
-        className={`md:w-64 md:mt-15 overflow-y-auto bg-white border border-gray-200 md:rounded-2xl md:sticky md:top-20 m-auto
-        fixed inset-0 z-51 transform transition-transform duration-300 ${
+        className={`w-64 md:mt-15 overflow-y-auto md:rounded-2xl md:sticky md:top-20 m-auto
+        fixed inset-0 transform transition-transform duration-300 ${
           filterOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
-        <h2 className="text-xl m-4">Filter</h2>
+        <h2 className="text-2xl m-4 font-bold text-brown">Filter</h2>
         <div className="rounded-2xl">
           <button
             onClick={toggleFilter}
@@ -128,7 +128,7 @@ export default function Filter() {
                 onClick={() => toggleAccordion(-1)} // Use -1 for price accordion
                 className="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 gap-3"
               >
-                <span className="text-black">Price</span>
+                <span className="text-dark-brown">Price</span>
                 <svg
                   className={`w-3 h-3 shrink-0 transition-transform ${
                     openAccordions.includes(-1) ? "rotate-180" : ""
@@ -139,7 +139,7 @@ export default function Filter() {
                   viewBox="0 0 10 6"
                 >
                   <path
-                    stroke="currentColor"
+                    stroke="brown"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
@@ -164,7 +164,7 @@ export default function Filter() {
                     max="10"
                     value={range}
                     onChange={(e) => setRange(Number(e.target.value))}
-                    className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-400"
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-light-gray accent-brown"
                   />
                 )}
               </div>
@@ -180,7 +180,7 @@ export default function Filter() {
                   onClick={() => toggleAccordion(idx)}
                   className="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 gap-3"
                 >
-                  <span className="text-black">{accordion.title}</span>
+                  <span className="text-dark-brown">{accordion.title}</span>
                   <svg
                     className={`w-3 h-3 shrink-0 transition-transform ${
                       openAccordions.includes(idx) ? "rotate-180" : ""
@@ -191,7 +191,7 @@ export default function Filter() {
                     viewBox="0 0 10 6"
                   >
                     <path
-                      stroke="currentColor"
+                      stroke="brown"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
@@ -208,7 +208,7 @@ export default function Filter() {
                         id={`${accordion.title}-checkbox-${cidx}`}
                         type="checkbox"
                         value={option.value}
-                        className="w-4 h-4 border-gray-300 rounded-sm"
+                        className="w-4 h-4 rounded-sm"
                       />
                       <label
                         htmlFor={`${accordion.title}-checkbox-${cidx}`}

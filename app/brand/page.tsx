@@ -12,14 +12,8 @@ export default function Brand() {
       <BrandOverview />
       <section className="mt-10 mx-10">
         <div className="grid grid-cols-5">
-          <div className="col-span-1">
-            <aside
-              className="md:w-64 mt-15 overflow-y-auto bg-white border border-gray-200 
-                          rounded-2xl sticky top-20 m-auto"
-            >
-              <h2 className="text-xl m-4">Filter</h2>
-              <Filter />
-            </aside>
+          <div className="md:col-span-1 md:flex hidden">
+            <Filter />
           </div>
           <div className="col-span-4">
             <div className="text-right">
