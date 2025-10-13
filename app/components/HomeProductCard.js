@@ -79,7 +79,7 @@ export default function HomeProductCard({
         {/* Buy Now button */}
         <button
           onClick={onBuyNow}
-          className="mt-2 w-full bg-black text-white py-2 rounded-3xl hover:bg-white hover:text-black transition-transform duration-350 hover:scale-96"
+          className="mt-2 w-full bg-black text-white py-2 rounded-3xl hover:bg-white hover:text-black transition duration-350"
         >
           Buy Now
         </button>

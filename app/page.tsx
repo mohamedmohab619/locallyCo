@@ -270,6 +270,7 @@ export default function NoonNavbar() {
 
   return (
     <>
+    <div className="bg-[#FFFCF2]">
       <NavBar />
 
       {/* Navigation Links below Navbar */}
@@ -581,6 +582,7 @@ export default function NoonNavbar() {
       {/* footer */}
 
       <Footer />
+      </div>
     </>
   );
 }

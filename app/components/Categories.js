@@ -54,7 +54,7 @@ const categories = [
 
 export default function Categories() {
   return (
-        <section className="py-12 bg-[#E9EAEB]">
+        <section className="py-12 bg-[#FFFCF2]">
   <div className="container mx-auto">
     {/* Header Row */}
     <div className="relative mb-[24px] py-3">
