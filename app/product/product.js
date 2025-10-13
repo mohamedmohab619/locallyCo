@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Rating, RatingStar, Button, Badge } from "flowbite-react";
+import ReviewCard from "../components/ReviewCard";
+import AttributeSection from "../components/AttributeSection";
 
 export default function BambiBabyTeeProductPage() {
   // defaults while loading
   const [images, setImages] = useState(["https://prd.place/400?id=5&p=40", "https://prd.place/400?id=6&p=40", "https://prd.place/400?id=7&p=40"]);
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
 
   // TODO: set productId from props or route in future; default to 30 for now
   const [productId, setProductId] = useState(2);
@@ -14,9 +14,9 @@ export default function BambiBabyTeeProductPage() {
   const [currentVersion, setCurrentVersion] = useState(null);
   const [skuCode, setSkuCode] = useState("");
   const [productVersions, setProductVersions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState({}); // key: attribute name, value: selected value
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(sizes[1]);
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [ratingStats, setRatingStats] = useState([ { rate: 5, percent: 70 }, { rate: 4, percent: 17 }, { rate: 3, percent: 8 }, { rate: 2, percent: 4 }, { rate: 1, percent: 1 } ]);
   const [qty, setQty] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,38 +28,33 @@ export default function BambiBabyTeeProductPage() {
       setError(null);
       try {
         // TODO: get product's (id, name, etc...) from the preview page
-        const res = await fetch(`http://localhost:8888/api/v1/products/${productId}`);
+        const res = await fetch(`http://localhost:8888/api/v1/products/${productId}?review=3&category&brand`);
         if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
         let data = await res.json();
         data = data.result;
         console.log("fetched data:", data);
         if (!mounted) return;
-        // adapt this mapping depending on your API shape
-        // assume API returns an object with attributes and images similar to the earlier code
+
         setCurrentProduct(data);
-        if (data?.versioning?.attributes?.color?.values) setColors(data?.versioning?.attributes.color.values);
-        if (data?.versioning?.attributes?.size?.values) setSizes(data?.versioning?.attributes.size.values);
-
-        console.log("new colors", data?.versioning?.attributes?.color?.values);
-        console.log("new sizes", data?.versioning?.attributes?.size?.values);
-
-        // set sensible defaults after data arrives
-        setSelectedSize((prev) => (data?.attributes?.size?.values?.[0] ?? prev));
-        setSelectedColor((prev) => (data?.attributes?.color?.values?.[0] ?? prev));
         setImages([data?.imageUrl]);
+        setRatingStats(data?.ratingStats || ratingStats);
 
+        // fetch product's versions
         const resultRes = await fetch(`http://localhost:8888/api/v1/products/${productId}/versions`);
         if (!resultRes.ok) throw new Error(`fetch failed: ${resultRes.status}`);
         const resultData = await resultRes.json();
         setProductVersions(resultData.result);
         console.log('Product Versions', resultData.result);
 
-        const curVer = resultData.result[0];
-        console.log(`current version: ${curVer}`)
-        setCurrentVersion(curVer);
-        setSkuCode((prev) => (curVer?.skuCode ?? prev));
-        setSelectedSize((prev) => (curVer?.size ?? prev));
-        setSelectedColor((prev) => (curVer?.color ?? prev));
+        // select the first version as the default
+        const currentVersion = resultData.result[0];
+        console.log(`current version: ${currentVersion}`)
+        setCurrentVersion(currentVersion);
+        setSkuCode((prev) => (currentVersion?.skuCode ?? prev));
+        setImages((prev) => currentVersion?.images ?? prev);
+
+        // select the options that this version has
+        setSelectedOptions(() => currentVersion?.attributes);
       } catch (err) {
         console.error(err);
         if (mounted) setError(err.message ?? String(err));
@@ -73,17 +68,37 @@ export default function BambiBabyTeeProductPage() {
     };
   }, [productId]);
 
-  const ratingStats = [
-    { stars: 5, percent: 70 },
-    { stars: 4, percent: 17 },
-    { stars: 3, percent: 8 },
-    { stars: 2, percent: 4 },
-    { stars: 1, percent: 1 },
-  ];
+  function handleAttributeSelect(attributeName, value) {
+    console.log(`selecting ${value} as the new ${attributeName}`);
+    if (! attributeName in Object.keys(currentVersion.attributes)) {
+      console.error("Attribute not found: " + attributeName);
+      return;
+    }
+
+    const tmpOptionsSelection = {...selectedOptions, [attributeName]: value};
+    console.log('Temporary Options Selection:', tmpOptionsSelection);
+
+    // find the version that matches the selected options
+    const matchingVersion = productVersions.find((ver) => {
+      for (const [attrName, attrValue] of Object.entries(ver.attributes)) {
+        if (tmpOptionsSelection[attrName].toLowerCase() !== attrValue.toLowerCase()) return false;
+      }
+      return true;
+    });
+
+    if (matchingVersion) {
+      setSelectedOptions(tmpOptionsSelection);
+      setCurrentVersion(matchingVersion);
+      setSkuCode(matchingVersion.skuCode);
+      setImages(matchingVersion.images);
+    } else {
+      console.error("No matching version found for selected options");
+    }
+  }
 
   function addToCart() {
     // TODO: implement adding to cart functionality
-    alert(`Added ${qty} × ${currentProduct?.name} (size: ${selectedSize}, color: ${selectedColor}) to cart`);
+    alert(`Added ${qty} × ${currentProduct?.name} to cart`);
   }
 
   return (
@@ -154,59 +169,31 @@ export default function BambiBabyTeeProductPage() {
             </div>
 
             {/* Ratings summary */}
-            {/* TODO: include rating data in the API */}
             <div className="flex items-center gap-2 mt-2">
               <Rating>
                 {[1, 2, 3, 4].map((i) => (
                   <RatingStar key={i} filled={true} />
                 ))}
                 <RatingStar filled={false} />
-                <p className="ml-2 text-sm font-medium text-gray-700">4.3</p>
+                <p className="ml-2 text-sm font-medium text-gray-700">{currentProduct?.averageRating || 0}</p>
               </Rating>
               <a href="#reviews" className="text-sm text-blue-600 underline">
-                20,587 Ratings
+                {currentProduct?.reviewCount} Ratings
               </a>
             </div>
 
             <div className="mt-4 text-sm">
               <span>SKU: {skuCode}</span>
 
-              {/* TODO: parse current version quantity then render stock state accordingly */}
-              <Badge className="inline text-green-500">In Stock</Badge>
+              { (currentVersion?.quantity > 0)
+                ? <Badge className="inline text-green-500">In Stock</Badge>
+                : <Badge className="inline text-red-500">Out of Stock</Badge>
+              }
             </div>
 
-            {/* Size selector */}
-            <div className="mt-6">
-              <h3 className="text-sm font-medium mb-2">Size</h3>
-              <div className="flex gap-2">
-                {sizes.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSelectedSize(s)}
-                    className={`px-3 py-2 rounded-md border focus:outline-none uppercase ${selectedSize === s ? "bg-gray-900 text-white" : "bg-white text-gray-700"
-                      }`}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Color selector */}
-            <div className="mt-6">
-              <h3 className="text-sm font-medium mb-2">Color</h3>
-              <div className="flex gap-3">
-                {colors.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => setSelectedColor(c)}
-                    className={`w-8 h-8 rounded-full border-2 focus:outline-none ${selectedColor === c ? "ring-2 ring-gray-900" : ""
-                      }`}
-                    style={{ backgroundColor: c }}
-                  />
-                ))}
-              </div>
-            </div>
+            {currentProduct?.attributes?.map((a) => (
+              <AttributeSection key={a.name} name={a.name} values={a.values} selectedValue={selectedOptions[a.name] || a.values[0]} onSelect={handleAttributeSelect} />
+            ))}
 
             {/* Quantity selector */}
             <div className="mt-6 flex items-center gap-3">
@@ -277,16 +264,16 @@ export default function BambiBabyTeeProductPage() {
                     <RatingStar key={i} filled={true} />
                   ))}
                   <RatingStar filled={false} />
-                  <p className="ml-2 text-sm font-medium text-gray-700">4.95 out of 5</p>
+                  <p className="ml-2 text-sm font-medium text-gray-700">{currentProduct?.averageRating || 0} out of 5</p>
                 </Rating>
               </div>
-              <p className="text-sm font-medium text-gray-500">1,745 global ratings</p>
+              <p className="text-sm font-medium text-gray-500">{currentProduct?.reviewCount} global ratings</p>
 
               <div className="space-y-2 mt-4 ">
-                {ratingStats.map(({ stars, percent }) => (
-                  <div key={stars} className="flex items-center">
+                {ratingStats.map(({ rate, percent }) => (
+                  <div key={rate} className="flex items-center">
                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline">
-                      {stars} star
+                      {rate} star
                     </a>
                     <div className="w-2/4 h-3 mx-4 bg-gray-200 rounded-sm">
                       <div
@@ -308,28 +295,23 @@ export default function BambiBabyTeeProductPage() {
                   Write a Review
                 </Button>
               </div>
-              <div className="mt-4 space-y-4 ">
-                {[
-                  { name: "Amina", time: "5 days ago", text: "Lovely material and perfect fit." },
-                  { name: "Omar", time: "2 weeks ago", text: "Nice print and fast delivery." },
-                  { name: "Mo", time: "2 weeks ago", text: "Fast delivery." },
-                ].map((r, i) => (
-                  <div key={i} className="border rounded 2xl p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="font-medium">
-                        {r.name} <Badge color="gray">Verified</Badge>
-                      </div>
-                      <div className="text-xs text-gray-500">{r.time}</div>
-                    </div>
-                    <p className="mt-2 text-gray-700">{r.text}</p>
+              { currentProduct
+                ? <div className="mt-4 space-y-4 ">
+                    {currentProduct.reviews?.map((r, i) => {
+                      const date = new Date(r.createdAt);
+                      r.createdAt = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                      const name = r.customer.fname + " " + r.customer.lname;
+                      return <ReviewCard key={i} name={name} time={r.createdAt} text={r.comment} /> 
+                    })}
                   </div>
-                ))}
-              </div>
+                : <div>No Reviews Yet!</div>
+              }
             </div>
           </div>
         </section>
 
         {/* Related Products */}
+        {/* TODO: include related products in the API */}
         <section className="mt-12 ">
           <h2 className="text-2xl font-semibold mb-6">You May Also Like</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
