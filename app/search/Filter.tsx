@@ -82,7 +82,7 @@ export default function Filter(){
                         data-accordion-target="#accordion-collapse-body" 
                         aria-expanded="true" 
                         aria-controls="accordion-collapse-body">
-                    <span className="text-black">
+                    <span className="text-brown">
                         Price
                     </span>
                     <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -95,7 +95,7 @@ export default function Filter(){
                     className="hidden" 
                     aria-labelledby="accordion-collapse-heading">
                     <div className="p-5">
-                        <label htmlFor="minmax-range" className="block mb-2 text-sm font-medium text-gray-900">
+                        <label htmlFor="minmax-range" className="block mb-2 text-sm font-medium text-brown">
                             100 - 1000
                         </label>
                         {mounted && range !== undefined && (
@@ -116,11 +116,11 @@ export default function Filter(){
                         <h2 id={`accordion-collapse-heading-${idx}`}>
                             <button
                                 type="button" 
-                                className="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 gap-3" 
+                                className="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-brown gap-3" 
                                 data-accordion-target={`#accordion-collapse-body-${idx}`} 
                                 aria-expanded="false" 
                                 aria-controls={`accordion-collapse-body-${idx}`}>
-                                <span className="text-black">
+                                <span className="text-brown">
                                     {accordion.title}
                                 </span>
                                 <svg data-accordion-icon className="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -147,7 +147,7 @@ export default function Filter(){
                                     />
                                     <label
                                         htmlFor={`${accordion.title}-checkbox-${cidx}`}
-                                        className="ms-2 text-sm font-medium text-black">
+                                        className="ms-2 text-sm font-medium text-brown">
                                         {option.label}
                                     </label>
                                 </div>

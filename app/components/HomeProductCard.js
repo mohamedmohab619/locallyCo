@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import { ShoppingCart, Check, Heart } from "lucide-react";
@@ -12,7 +14,6 @@ export default function HomeProductCard({
   onBuyNow,
   onAddToFavorites,
 }) {
-  // ✅ local states for toggling
   const [isFavorite, setIsFavorite] = useState(false);
   const [inCart, setInCart] = useState(false);
 
@@ -37,14 +38,12 @@ export default function HomeProductCard({
           className="object-cover rounded-4xl p-4"
         />
 
-        {/* ✅ Badge - top-left */}
         {badge && (
           <span className="absolute top-6 left-6 bg-amber-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
             {badge}
           </span>
         )}
 
-        {/* ✅ Favorites Icon - top-right */}
         <button
           onClick={handleFavoriteClick}
           className="absolute top-6 right-6 bg-white p-2 rounded-full shadow transition-all duration-300 hover:scale-110 hover:bg-gray-100
@@ -57,7 +56,6 @@ export default function HomeProductCard({
           />
         </button>
 
-        {/* ✅ Cart Icon - bottom-right */}
         <button
           onClick={handleCartClick}
           className="absolute bottom-6 right-6 bg-white p-2 rounded-full shadow transition-transform duration-350 hover:scale-110 hover:bg-gray-100"
@@ -70,13 +68,11 @@ export default function HomeProductCard({
         </button>
       </div>
 
-      {/* Content */}
       <div className="p-4 pt-[0px]">
         {brand && <p className="text-sm text-gray-500">{brand}</p>}
         <h3 className="font-semibold text-gray-800 truncate">{title}</h3>
         <p className="text-lg font-bold text-gray-900">{price}</p>
 
-        {/* Buy Now button */}
         <button
           onClick={onBuyNow}
           className="mt-2 w-full bg-black text-white py-2 rounded-3xl hover:bg-white hover:text-black transition duration-350"
