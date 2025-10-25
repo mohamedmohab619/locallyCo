@@ -5,15 +5,15 @@ import Footer from "../components/Footer";
 
 export default function ProfilePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#D4AF37] via-[#E0C097] to-[#0F4C75]">
       {/* Navbar at top */}
       <Navbar />
 
       {/* Middle area: sidebar + content */}
       <div className="flex flex-1">
         {/* Sidebar (left) */}
-        <div className="shrink-0">
-          <Sidebar />
+        <div className="shrink-0 ">
+          <Sidebar  />
         </div>
 
         {/* Main content (right) */}

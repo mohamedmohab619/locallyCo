@@ -40,6 +40,8 @@ body {
   }
 }
 
+
+
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
@@ -47,6 +49,10 @@ body {
 
 .font-quicksand {
   font-family: var(--font-quicksand);
+}
+
+.sidebar {
+  @apply bg-[#fffcf2];
 }
 
 @theme {
@@ -57,3 +63,5 @@ body {
   --color-dark-gray:#4f4f4f;
   --color-light-gray:#b0b0b0;
 }
+
+

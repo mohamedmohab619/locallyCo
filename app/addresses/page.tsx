@@ -121,12 +121,12 @@ const AddressesPage = () => {
         </div>
 
         {/* Main content (right) */}
-        <main className="flex-1 p-6 overflow-y-auto">
-          <div className="flex justify-between items-center mb-6">
+        <main className="flex-1 p-6 overflow-y-auto ">
+          <div className="flex justify-between items-center mb-6 ">
             <h1 className="text-2xl font-bold">Your Addresses</h1>
             <button
               onClick={openAddModal}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
+              className="bg-[#5C0B00]  text-white px-4 py-2 rounded-lg shadow hover:bg-[#94492e]"
             >
               + Add New Address
             </button>
@@ -139,7 +139,7 @@ const AddressesPage = () => {
               {addresses.map((addr) => (
                 <div
                   key={addr.id}
-                  className="p-6 bg-white border border-gray-200 rounded-2xl shadow hover:shadow-md transition"
+                  className="p-6 bg-[#fffcf2] border border-gray-400 rounded-2xl shadow hover:shadow-md transition "
                 >
                   <h3 className="text-lg font-semibold text-gray-900">{addr.name}</h3>
                   {addr.details && addr.details.includes(",") ? (

@@ -10,17 +10,13 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <aside
-      className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 
-                 dark:border-gray-700 flex flex-col"
-    >
-      {/* Title */}
-      <div className="p-4 text-xl font-bold text-gray-900 dark:text-white">
-        Menu
-      </div>
 
+    
+<aside className="sidebar w-64 bg-[#bc9000] border-r border-gray-200 flex flex-col">
+ 
+<div className=" bg-[#bc9000] ">
       {/* Sidebar navigation */}
-      <nav className="flex-1 px-3 pb-6 overflow-y-auto">
+      <nav className="flex-1 px-3 pb-6 overflow-y-auto ">
         <ul className="space-y-2 font-medium">
           <li>
             <Link
@@ -33,12 +29,12 @@ export default function Sidebar() {
             </Link>
           </li>
           <li>
-            <Link
-              href="/orders"
-              className="flex items-center p-2 text-gray-700 rounded-lg 
-                         hover:bg-gray-100 dark:text-gray-200 
-                         dark:hover:bg-gray-700"
-            >
+        <Link
+  href="/orders"
+  className="flex items-center p-2 text-gray-700 rounded-lg 
+             dark:text-gray-200 
+             hover:bg-[#2e6f94]"
+>
               <span className="ml-3">Orders</span>
             </Link>
           </li>
@@ -74,6 +70,8 @@ export default function Sidebar() {
           </li>
         </ul>
       </nav>
+        </div>
     </aside>
+  
   );
 }

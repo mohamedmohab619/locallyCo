@@ -1,26 +1,52 @@
-"use client"; // ⬅️ now this page can use state & event handlers
+"use client";
 
-import { useState } from "react";
+import React from "react";
 import Navbar from "../components/NavBar";
-import Card from "./Card";
-import Button from "./Button";
+import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
+import Image from "next/image";
 
-export default function Home() {
-  const [cards, setCards] = useState<number[]>([]);
-
-  const addCard = () => {
-    setCards([...cards, cards.length + 1]);
-  };
-
+const FavouritesPage = () => {
   return (
-    <main>
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      {/* Navbar */}
       <Navbar />
-      <Button onAddCard={addCard} />
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-3 gap-2 w-full bg-gray-50">
-        {cards.map((id) => (
-          <Card key={id} />
-        ))}
+
+      {/* Middle layout */}
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <div className="shrink-0">
+          <Sidebar />
+        </div>
+
+        {/* Main Content */}
+        <main className="flex-1 flex items-center justify-center p-6">
+          <div className="text-center">
+            <div className="pb-1 flex justify-center">
+              <Image
+                src="/notfound.png" 
+                alt="No favourites"
+                width={400}
+                height={400}
+                className="w-3/4 max-w-sm h-auto rounded-lg mx-auto"
+              />
+            </div>
+            <h2 className="text-2xl font-bold mb-2">You have no favourite items</h2>
+            <p className="text-gray-600 mb-6 max-w-md mx-auto">
+              Browse our collections and add items to your favourites list for quick access later!
+            </p>
+            <button className="bg-[#5C0B00] text-white px-6 py-2 rounded-lg shadow hover:bg-[#94492e]">
+              START SHOPPING
+            </button>
+          </div>
+        </main>
       </div>
-    </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
-}
+};
+
+export default FavouritesPage;
+

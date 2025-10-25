@@ -1,5 +1,5 @@
 "use client";
-
+import DomeGallery from "./Hero-DomeGallery/DomeGallery";
 import {
   Navbar,
   NavbarBrand,
@@ -272,7 +272,7 @@ export default function NoonNavbar() {
     <>
     <div className="bg-[#FFFCF2]">
       <NavBar />
-
+  
       {/* Navigation Links below Navbar */}
       {/* <div className="flex gap-10 p-10 text-blue-700 mt-[80px] bg-amber-300">
         <p>Navigate to the pages through these links:</p>
@@ -304,93 +304,70 @@ export default function NoonNavbar() {
           checkout
         </Link>
       </div> */}
-      <div className="bg-gradient-to-r from-[#40E0D0] via-[#Dcd5b9] to-[#f5f5dc] animate-gradient">
-        <div className="h-full mx-auto flex justify-start">
-          {/* Hero wrapper */}
-          <div className="relative w-full h-[80vh] overflow-hidden">
-            {/* Background Image */}
-            <Image
-              src="/locallyco.jpg"
-              alt="Hero"
-              fill
-              priority
-              className="object-cover"
-            />
-
-            {/* Content */}
-            <div className="relative z-10 flex flex-col items-start justify-center h-full text-center text-black px-6 md:px-10">
-              {/* Hero headline */}
-              <h1 className="flex flex-wrap justify-center items-center text-center font-extrabold mb-4 tracking-tight text-black">
-                {/* First part of the text */}
-                <span className="mr-3 text-[clamp(2rem,5vw,6rem)] font-extrabold">
-                  <ScrollFloat
-                    containerClassName="inline-block"
-                    textClassName="inline-block"
-                    animationDuration={1.2}
-                    stagger={0.05}
-                  >
-                    Arrival of
-                  </ScrollFloat>
-                </span>
-
-                {/* Rotating text */}
-                <span>
-                  <RotatingText
-                    texts={["Outfit", "Collection", "Style"]}
-                    mainClassName="text-[clamp(2rem,5vw,6rem)] font-extrabold text-black py-1 rounded-lg inline-block"
-                    staggerFrom="last"
-                    initial={{ y: "100%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: "-120%", opacity: 0 }}
-                    staggerDuration={0.05}
-                    splitLevelClassName="overflow-hidden"
-                    transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                    rotationInterval={2000}
-                  />
-                </span>
-              </h1>
-
-              {/* Subtext */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="text-lg md:text-xl max-w-2xl mb-6"
-              >
-                Discover quality fashion that reflects your style and makes
-                everyday enjoyable.
-              </motion.p>
-
-              {/* Call to action */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                type="button"
-                className="inline-flex items-center px-6 py-3 text-base font-medium text-black bg-white rounded-full shadow hover:bg-gray-200 focus:ring-2 focus:ring-offset-2 focus:ring-white"
-              >
-                Explore Product
-                <svg
-                  className="w-5 h-5 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </motion.button>
-            </div>
-          </div>
-        </div>
-      </div>
       
+ <div className="relative w-full h-[90vh] overflow-hidden">
+  {/* 🌐 Sphere as Background */}
+  <div className="absolute inset-0 z-0">
+    <DomeGallery />
+  </div>
+
+  {/* ✨ Hero Text on Top of Sphere */}
+  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-black px-4">
+    <h1 className="font-extrabold mb-4 tracking-tight">
+      <span className="text-[clamp(2rem,5vw,6rem)] font-extrabold">
+        Arrival of{" "}
+      </span>
+      <RotatingText
+        texts={["Outfit", "Collection", "Style"]}
+        mainClassName="text-[clamp(2rem,5vw,6rem)] font-extrabold text-black inline-block bg-[#FFFCF2]  px-4 py-2 rounded-3xl shadow-md"
+        staggerFrom="last"
+        initial={{ y: "100%", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: "-120%", opacity: 0 }}
+        rotationInterval={2000}
+      />
+    </h1>
+
+  <motion.p
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1, delay: 0.3 }}
+  className="text-lg md:text-xl max-w-2xl mb-6 text-black"
+  style={{
+    textShadow: "0 0 4px white, 0 0 8px white" // creates soft white outline
+  }}
+>
+  Discover quality fashion that reflects your style and makes
+  everyday enjoyable.
+</motion.p>
+
+    <motion.button
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.6 }}
+      type="button"
+      className="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-[#5C0B00] rounded-full shadow hover:bg-[#94492e] focus:ring-2 focus:ring-offset-2 focus:ring-white"
+    >
+      Explore Products
+      <svg
+        className="w-5 h-5 ml-2"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M17 8l4 4m0 0l-4 4m4-4H3"
+        />
+      </svg>
+    </motion.button>
+  </div>
+</div>
+
       {/* Trending brands */}
-      <section className="bg-[#d4cda1] pb-7 ">
+      <section className="bg-[#FFFCF2] pb-7 ">
         <div className="h-full flex flex-col justify-start">
           {/* Blue section full width */}
           <section className="w-full mt-[32px] bg-[#1b365d] px-[32px] pb-[32px] py-6">

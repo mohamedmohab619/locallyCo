@@ -88,7 +88,7 @@ export default function ProfileInfo() {
         <p>View and update your profile</p>
       </div>
 
-      <div className="shadow-xl bg-white shadow-gray-300 rounded-2xl">
+      <div className="shadow-xl bg-[#fffcf2]  rounded-2xl">
         {/* Personal Info */}
         <div className="p-6">
           <h2 className="py-4">Personal Information</h2>
@@ -238,8 +238,8 @@ export default function ProfileInfo() {
       <button
         type="button"
         onClick={handleSubmit}
-        className="mt-6 text-white bg-yellow-500 hover:bg-yellow-600 
-        font-medium rounded-2xl text-lg px-5 py-3"
+        className="mt-6 text-white bg-[#5C0B00] hover:bg-[#94492e] hover:text-white 
+           font-medium rounded-2xl text-lg px-5 py-3"
       >
         Update Information
       </button>

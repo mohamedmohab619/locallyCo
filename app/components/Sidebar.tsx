@@ -8,7 +8,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import {
   HiUser,
   HiShoppingCart,
-  HiCube,
+  HiHeart as HiCube,
   HiCog,
   HiUserCircle,
 } from "react-icons/hi";
@@ -29,7 +29,7 @@ export default function Sidebar() {
   const navItems = [
     { href: "/profile", label: "Profile", icon: <HiUser className="w-5 h-5" /> },
     { href: "/orders", label: "Orders", icon: <HiShoppingCart className="w-5 h-5" /> },
-    { href: "/products", label: "Products", icon: <HiCube className="w-5 h-5" /> },
+    { href: "/favourites", label: "Favourites", icon: <HiCube className="w-5 h-5" /> },
     { href: "/settings", label: "Settings", icon: <HiCog className="w-5 h-5" /> },
     { href: "/addresses", label: "Addresses", icon: <FaMapMarkerAlt className="text-lg" /> },
   ];
