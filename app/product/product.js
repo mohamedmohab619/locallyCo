@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Rating, RatingStar, Button, Badge } from "flowbite-react";
 import ReviewCard from "../components/ReviewCard";
 import AttributeSection from "../components/AttributeSection";
+import ProductPrice from "../components/ProductPrice";
+import { getBestDiscountAmount } from "./utils";
 
 export default function BambiBabyTeeProductPage() {
   // defaults while loading
   const [images, setImages] = useState(["https://prd.place/400?id=5&p=40", "https://prd.place/400?id=6&p=40", "https://prd.place/400?id=7&p=40"]);
 
   // TODO: set productId from props or route in future; default to 30 for now
-  const [productId, setProductId] = useState(2);
+  const [productId, setProductId] = useState(5);
   const [currentProduct, setCurrentProduct] = useState({});
   const [currentVersion, setCurrentVersion] = useState(null);
   const [skuCode, setSkuCode] = useState("");
@@ -18,6 +20,11 @@ export default function BambiBabyTeeProductPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [ratingStats, setRatingStats] = useState([ { rate: 5, percent: 70 }, { rate: 4, percent: 17 }, { rate: 3, percent: 8 }, { rate: 2, percent: 4 }, { rate: 1, percent: 1 } ]);
   const [qty, setQty] = useState(1);
+  const [originalPrice, setOriginalPrice] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [bestDiscount, setBestDiscount] = useState(null);
+  const [bestDiscountAmount, setBestDiscountAmount] = useState(0);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -29,32 +36,50 @@ export default function BambiBabyTeeProductPage() {
       try {
         // TODO: get product's (id, name, etc...) from the preview page
         const res = await fetch(`http://localhost:8888/api/v1/products/${productId}?review=3&category&brand`);
-        if (!res.ok) throw new Error(`fetch failed: ${res.status}`);
-        let data = await res.json();
-        data = data.result;
-        console.log("fetched data:", data);
+        if (!res.ok) console.warn(`fetch failed: ${res.status}`);
+        let productData = await res.json();
+        productData = productData.result;
+        console.log("fetched data:", productData);
         if (!mounted) return;
 
-        setCurrentProduct(data);
-        setImages([data?.imageUrl]);
-        setRatingStats(data?.ratingStats || ratingStats);
+        setCurrentProduct(productData);
+        setImages([productData?.imageUrl]);
+        setRatingStats(productData?.ratingStats || ratingStats);
 
         // fetch product's versions
         const resultRes = await fetch(`http://localhost:8888/api/v1/products/${productId}/versions`);
-        if (!resultRes.ok) throw new Error(`fetch failed: ${resultRes.status}`);
+        if (!resultRes.ok) console.warn(`fetch failed: ${resultRes.status}`);
         const resultData = await resultRes.json();
         setProductVersions(resultData.result);
         console.log('Product Versions', resultData.result);
 
         // select the first version as the default
-        const currentVersion = resultData.result[0];
-        console.log(`current version: ${currentVersion}`)
-        setCurrentVersion(currentVersion);
-        setSkuCode((prev) => (currentVersion?.skuCode ?? prev));
-        setImages((prev) => currentVersion?.images ?? prev);
+        const currVersion = resultData.result[0];
+        console.log("current version:", currVersion)
+        setCurrentVersion(currVersion);
+        setSkuCode((prev) => (currVersion?.skuCode ?? prev));
+        setImages((prev) => currVersion?.images ?? prev);
 
         // select the options that this version has
-        setSelectedOptions(() => currentVersion?.attributes);
+        setSelectedOptions(() => currVersion?.attributes);
+
+        // fetch discounts based on product, category, and brand ids
+        const discountsRes = await fetch(`http://localhost:8888/api/v1/discounts?product=${productId}&brand=${productData?.brandId}&category=${productData?.categoryId}`);
+        if (!discountsRes.ok) console.warn(`fetch failed: ${discountsRes.status}`);
+        const discountData = await discountsRes.json();
+        console.log("discount data: ", discountData);
+
+        // handling price
+        console.log("current version's price in cents: ", currVersion?.priceCent);
+        const [discountAmount, bestDis] = getBestDiscountAmount(currVersion?.priceCent, discountData?.result);
+        setBestDiscountAmount(discountAmount);
+        setBestDiscount(bestDis);
+
+        // handle related products
+        const relatedRes = await fetch(`http://localhost:8888/api/v1/products/${productId}/relevant?score=0`);
+        if (!relatedRes.ok) console.worn(`fetch failed ${relatedRes.status}`);
+        const relatedData = await relatedRes.json();
+        setRelatedProducts(relatedData?.result);
       } catch (err) {
         console.error(err);
         if (mounted) setError(err.message ?? String(err));
@@ -70,12 +95,12 @@ export default function BambiBabyTeeProductPage() {
 
   function handleAttributeSelect(attributeName, value) {
     console.log(`selecting ${value} as the new ${attributeName}`);
-    if (! attributeName in Object.keys(currentVersion.attributes)) {
+    if (!attributeName in Object.keys(currentVersion.attributes)) {
       console.error("Attribute not found: " + attributeName);
       return;
     }
 
-    const tmpOptionsSelection = {...selectedOptions, [attributeName]: value};
+    const tmpOptionsSelection = { ...selectedOptions, [attributeName]: value };
     console.log('Temporary Options Selection:', tmpOptionsSelection);
 
     // find the version that matches the selected options
@@ -95,6 +120,11 @@ export default function BambiBabyTeeProductPage() {
       console.error("No matching version found for selected options");
     }
   }
+
+  useEffect(() => {
+    setOriginalPrice(currentVersion?.priceCent);
+    setFinalPrice((currentVersion?.priceCent - bestDiscountAmount));
+  }, [currentVersion, bestDiscountAmount]);
 
   function addToCart() {
     // TODO: implement adding to cart functionality
@@ -161,12 +191,8 @@ export default function BambiBabyTeeProductPage() {
               Brand: {currentProduct?.brand?.name ?? ""}
             </a>
 
-            <div className="flex items-center gap-3 mt-2">
-              {/* TODO: handle discount/offer data */}
-              <p className="text-2xl font-bold text-gray-900">EGP {(currentVersion?.priceCent / 100) ?? 0}</p>
-              <p className="line-through text-gray-400 text-lg">EGP {((currentVersion?.priceCent + 1000) / 100) ?? 0}</p>
-              <Badge className="text-green-500">Save 15%</Badge>
-            </div>
+            {/* TODO: handle discount/offer data */}
+            <ProductPrice finalPrice={(finalPrice / 100)} originalPrice={(originalPrice / 100)} discountType={bestDiscount?.type} discountValue={bestDiscount?.value} />
 
             {/* Ratings summary */}
             <div className="flex items-center gap-2 mt-2">
@@ -185,9 +211,9 @@ export default function BambiBabyTeeProductPage() {
             <div className="mt-4 text-sm">
               <span>SKU: {skuCode}</span>
 
-              { (currentVersion?.quantity > 0)
-                ? <Badge className="inline text-green-500">In Stock</Badge>
-                : <Badge className="inline text-red-500">Out of Stock</Badge>
+              {(currentVersion?.quantity > 0)
+                ? <Badge color="green" className="inline text-green-500">In Stock</Badge>
+                : <Badge color="red" className="inline text-red-500">Out of Stock</Badge>
               }
             </div>
 
@@ -232,11 +258,6 @@ export default function BambiBabyTeeProductPage() {
             <div className="mt-8">
               <h2 className="text-lg font-semibold">Product Details</h2>
               <p className="mt-2 text-gray-700 leading-relaxed">{currentProduct?.description}</p>
-              <ul className="mt-3 text-gray-700 list-disc list-inside">
-                <li>100% Cotton</li>
-                <li>Machine wash cold</li>
-                <li>Made with safe dyes</li>
-              </ul>
             </div>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600">
@@ -295,16 +316,16 @@ export default function BambiBabyTeeProductPage() {
                   Write a Review
                 </Button>
               </div>
-              { currentProduct
+              {currentProduct && currentProduct?.reviews?.length || 0 > 0
                 ? <div className="mt-4 space-y-4 ">
-                    {currentProduct.reviews?.map((r, i) => {
-                      const date = new Date(r.createdAt);
-                      r.createdAt = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                      const name = r.customer.fname + " " + r.customer.lname;
-                      return <ReviewCard key={i} name={name} time={r.createdAt} text={r.comment} /> 
-                    })}
-                  </div>
-                : <div>No Reviews Yet!</div>
+                  {currentProduct.reviews?.map((r, i) => {
+                    const date = new Date(r.createdAt);
+                    r.createdAt = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    const name = r.customer.fname + " " + r.customer.lname;
+                    return <ReviewCard key={i} name={name} time={r.createdAt} text={r.comment} />
+                  })}
+                </div>
+                : <div className="w-full h-full flex justify-center items-center"><p>No Reviews Yet!</p></div>
               }
             </div>
           </div>
@@ -315,19 +336,19 @@ export default function BambiBabyTeeProductPage() {
         <section className="mt-12 ">
           <h2 className="text-2xl font-semibold mb-6">You May Also Like</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {["https://prd.place/400?id=5&p=40", "https://prd.place/400?id=6&p=40", "https://prd.place/400?id=7&p=40", "https://prd.place/400?id=8&p=40"].map(
+            {relatedProducts.map(
               (p, i) => (
                 <div
                   key={i}
                   className="border rounded-md p-2 hover:shadow transition"
                 >
                   <img
-                    src={p}
+                    src={p.imageUrl}
                     alt="Related product"
                     className="w-full h-40 object-cover rounded"
                   />
-                  <p className="mt-2 text-sm font-medium">Product {i + 1}</p>
-                  <p className="text-gray-600 text-sm">EGP 299.00</p>
+                  <p className="mt-2 text-sm font-medium">{ p?.name }</p>
+                  <p className="text-gray-600 text-sm">EGP { (p?.priceCent / 100) }</p>
                 </div>
               )
             )}
