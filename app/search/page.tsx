@@ -9,18 +9,17 @@ import TiltedWrapper from "../components/TiltedWrapper";
 import Link from "next/link";
 
 export default function Page() {
-   const handleAddToCart = (title: string) => {
-   console.log("Added to cart:", title);
-   };
+  const handleAddToCart = (title: string) => {
+    console.log("Added to cart:", title);
+  };
 
-   const handleBuyNow = (title: string) => {
-   console.log("Buy now:", title);
-   };
+  const handleBuyNow = (title: string) => {
+    console.log("Buy now:", title);
+  };
 
-   const handleAddToFavorites = (title: string) => {
-   console.log("Added to favorites:", title);
-   };
-
+  const handleAddToFavorites = (title: string) => {
+    console.log("Added to favorites:", title);
+  };
 
   // Example products — replace with your actual search results
   const products = [
@@ -92,7 +91,7 @@ export default function Page() {
             className="md:w-64 mt-15 overflow-y-auto bg-white border border-gray-200 
             rounded-2xl sticky top-20 m-auto"
           >
-            <h2 className="text-xl m-4 text-brown">Filter</h2>
+            {/* <h2 className="text-xl m-4 text-brown">Filter</h2> */}
             <Filter />
           </aside>
         </div>
@@ -105,23 +104,22 @@ export default function Page() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-3 gap-15 w-full px-5">
             {products.map((product, index) => (
-               <TiltedWrapper key={index} scaleOnHover={1.05}>
-                  <Link href={`/product/${product.title}`} className="link">
+              <TiltedWrapper key={index} scaleOnHover={1.05}>
+                <Link href={`/product/${product.title}`} className="link">
                   <HomeProductCard
-                     imageSrc={product.imageSrc}
-                     brand={product.brand}
-                     title={product.title}
-                     price={product.price}
-                     badge={product.badge}
-                     onAddToCart={() => handleAddToCart(product.title)}
-                     onBuyNow={() => handleBuyNow(product.title)}
-                     onAddToFavorites={() => handleAddToFavorites(product.title)}
+                    imageSrc={product.imageSrc}
+                    brand={product.brand}
+                    title={product.title}
+                    price={product.price}
+                    badge={product.badge}
+                    onAddToCart={() => handleAddToCart(product.title)}
+                    onBuyNow={() => handleBuyNow(product.title)}
+                    onAddToFavorites={() => handleAddToFavorites(product.title)}
                   />
-                  </Link>
-               </TiltedWrapper>
+                </Link>
+              </TiltedWrapper>
             ))}
-            </div>
-
+          </div>
         </div>
       </div>
 

@@ -17,7 +17,7 @@ export default function Brand() {
               className="md:w-64 mt-15 overflow-y-auto bg-white border border-gray-200 
                           rounded-2xl sticky top-20 m-auto"
             >
-              <h2 className="text-xl m-4">Filter</h2>
+              {/* <h2 className="text-xl m-4">Filter</h2> */}
               <Filter />
             </aside>
           </div>

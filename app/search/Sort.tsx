@@ -1,44 +1,68 @@
-"use client"
-import React from "react"
-import { initFlowbite } from 'flowbite';
+"use client";
+import React from "react";
+import { initFlowbite } from "flowbite";
 
-export default function Sort(){
-
-    React.useEffect(() => {
+export default function Sort() {
+  React.useEffect(() => {
     initFlowbite();
-    }, []);
+  }, []);
 
-    return(
-        <div className="pt-6">
-            
-            <button
-             id="dropdownDefaultButton" 
-             data-dropdown-toggle="dropdown" 
-             className="mx-3 text-beige font-medium rounded-xl text-sm px-5 py-2.5 mb-2 focus:outline-none cursor-pointer text-center inline-flex items-center border-2 bg-brown " 
-             type="button">
-                Sort by 
-                <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-                </svg>
-            </button>
+  return (
+    <div>
+      <button
+        id="dropdownDefaultButton"
+        data-dropdown-toggle="dropdown"
+        className="mx-3 text-white font-medium rounded-lg text-sm px-5 py-2.5 mb-2 focus:outline-none cursor-pointer text-center inline-flex items-center bg-brown hover:bg-dark-brown duration-300"
+        type="button"
+      >
+        SORT BY
+        <svg
+          className="w-2.5 h-2.5 ms-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="m1 1 4 4 4-4"
+          />
+        </svg>
+      </button>
 
-            <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
-                <ul className="py-2 text-sm text-black" aria-labelledby="dropdownDefaultButton">
-                <li>
-                    <a href="#" className="block px-4 py-2">Recommended</a>
-                </li>
-                <li>
-                    <a href="#" className="block px-4 py-2">Newest</a>
-                </li>
-                <li>
-                    <a href="#" className="block px-4 py-2">Highest Price</a>
-                </li>
-                <li>
-                    <a href="#" className="block px-4 py-2">Lowest Price</a>
-                </li>
-                </ul>
-            </div>
-
-        </div>
-    )
+      <div
+        id="dropdown"
+        className="z-10 hidden text-left bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44"
+      >
+        <ul
+          className="py-2 text-md text-black"
+          aria-labelledby="dropdownDefaultButton"
+        >
+          <li>
+            <a href="#" className="block px-4 py-2">
+              Recommended
+            </a>
+          </li>
+          <li>
+            <a href="#" className="block px-4 py-2">
+              Newest
+            </a>
+          </li>
+          <li>
+            <a href="#" className="block px-4 py-2">
+              Highest Price
+            </a>
+          </li>
+          <li>
+            <a href="#" className="block px-4 py-2">
+              Lowest Price
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
 }
