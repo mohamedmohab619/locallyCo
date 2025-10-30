@@ -12,7 +12,7 @@ export default function Sort() {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   }
   return (
-    <div>
+    <div className="relative">
       <button
         className="mx-3 text-white font-medium rounded-lg text-sm px-5 py-2.5 mb-2 focus:outline-none cursor-pointer text-center inline-flex items-center bg-brown hover:bg-dark-brown duration-300"
         type="button"
@@ -37,7 +37,7 @@ export default function Sort() {
       </button>
 
       {isOpen && (
-        <div className="z-10 hidden text-left bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+        <div className="absolute top-full right-0 z-10 text-left bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
           <ul
             className="py-2 text-md text-black"
             aria-labelledby="dropdownDefaultButton"

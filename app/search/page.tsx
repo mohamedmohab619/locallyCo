@@ -97,8 +97,8 @@ export default function Page() {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-4 bg-white">
-          <div className="text-right">
+        <div className="col-span-4 bg-green-50 flex flex-col">
+          <div className="self-end flex flex-col">
             <Sort />
           </div>
 
